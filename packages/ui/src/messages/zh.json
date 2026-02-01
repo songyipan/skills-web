@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "marketplace": "探索",
+    "library": "我的",
+    "activity": "同步记录",
+    "discovery": "主商店",
+    "recentSignals": "最近下载",
+    "nexusCore": "SkillHub 商店",
+    "linked": "在线",
+    "logout": "退出登录",
+    "silence": "暂无记录"
+  },
+  "header": {
+    "searchPlaceholder": "搜索技能、提示词或智能体...",
+    "sync": "全部更新"
+  },
+  "hero": {
+    "badge": "商店 v3.2",
+    "badgeStable": "全球仓库",
+    "title1": "赋予您的 AI",
+    "title2": "更多超能力。",
+    "desc": "发现、下载和管理高级 AI 技能的首选平台。一键增强您的 AI 工作流。",
+    "btnStart": "浏览技能",
+    "btnDocs": "开发者门户"
+  },
+  "categories": {
+    "All": "全部技能",
+    "Creative": "创意",
+    "Logic": "逻辑",
+    "Coding": "工程",
+    "Visual": "设计",
+    "Utility": "生产力",
+    "onlineSuffix": "个可选技能"
+  },
+  "library": {
+    "title": "我的技能",
+    "desc": "已下载 AI 技能的管理控制台。",
+    "synced": "已安装",
+    "emptyTitle": "仓库空空如也",
+    "emptyDesc": "在商店中寻找适合您助手的技能并添加。",
+    "emptyBtn": "前往商店"
+  },
+  "activity": {
+    "title": "同步日志",
+    "desc": "技能部署和更新的时间轴。",
+    "colStatus": "状态",
+    "colName": "技能名称",
+    "colTime": "时间",
+    "colNode": "节点",
+    "empty": "暂无同步记录。"
+  },
+  "skills": {
+    "creative-writer": {
+      "name": "故事架构师",
+      "desc": "用于复杂叙事生成和情节结构化的高保真提示词引擎。"
+    },
+    "code-optimizer": {
+      "name": "逻辑重构",
+      "desc": "高级逻辑分析技能，可优化运行复杂度和内存使用。"
+    },
+    "image-gen": {
+      "name": "梦境可视化",
+      "desc": "支持潜空间扩散模型以生成资产的视觉合成模块。"
+    },
+    "summarizer": {
+      "name": "精髓提取器",
+      "desc": "支持多文档语义压缩的情景感知摘要模块。"
+    },
+    "philosopher": {
+      "name": "禅思者",
+      "desc": "专为伦理分析和抽象逻辑设计的认知推理模块。"
+    },
+    "brand-genius": {
+      "name": "品牌专家",
+      "desc": "用于多渠道身份和命名合成的市场情报技能。"
+    }
+  },
+  "common": {
+    "detail": "详情",
+    "deploy": "安装",
+    "synced": "已安装",
+    "installed": "已安装",
+    "success": "成功",
+    "failed": "失败"
+  },
+  "auth": {
+    "title": "登录 SkillHub",
+    "subtitle": "连接您的账户以跨设备同步技能",
+    "connecting": "正在连接 GitHub...",
+    "authorized": "授权成功",
+    "githubBtn": "使用 GitHub 继续",
+    "secure": "安全、只读访问您的公开仓库",
+    "agree": "我同意服务条款和隐私政策"
+  },
+  "modal": {
+    "processing": "处理中",
+    "runBtn": "安装技能"
+  }
+}

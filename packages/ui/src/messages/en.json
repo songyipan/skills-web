@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "marketplace": "Explore",
+    "library": "My Skills",
+    "activity": "Sync History",
+    "discovery": "Marketplace",
+    "recentSignals": "Recent Downloads",
+    "nexusCore": "SkillHub Store",
+    "linked": "Online",
+    "logout": "Sign Out",
+    "silence": "No Activity"
+  },
+  "header": {
+    "searchPlaceholder": "Search skills, prompts, or agents...",
+    "sync": "Update All"
+  },
+  "hero": {
+    "badge": "Marketplace v3.2",
+    "badgeStable": "Global Repository",
+    "title1": "Power up your",
+    "title2": "AI Assistant.",
+    "desc": "The premier destination to discover, download, and manage advanced AI skills. Enhance your workflow in one click.",
+    "btnStart": "Browse Skills",
+    "btnDocs": "Developer Portal"
+  },
+  "categories": {
+    "All": "All Skills",
+    "Creative": "Creative",
+    "Logic": "Logic",
+    "Coding": "Engineering",
+    "Visual": "Design",
+    "Utility": "Productivity",
+    "onlineSuffix": "Skills Available"
+  },
+  "library": {
+    "title": "My Skills",
+    "desc": "Management console for your downloaded AI capabilities.",
+    "synced": "Installed",
+    "emptyTitle": "Empty Library",
+    "emptyDesc": "Browse the marketplace to find skills to add to your assistant.",
+    "emptyBtn": "Open Store"
+  },
+  "activity": {
+    "title": "Sync History",
+    "desc": "Timeline of skill deployments and updates.",
+    "colStatus": "Status",
+    "colName": "Skill",
+    "colTime": "Time",
+    "colNode": "Node",
+    "empty": "No sync activity recorded."
+  },
+  "skills": {
+    "creative-writer": {
+      "name": "Story Architect",
+      "desc": "A high-fidelity prompt engine for complex narrative generation and plot structuring."
+    },
+    "code-optimizer": {
+      "name": "Logic Refactor",
+      "desc": "Advanced logic analyzer skill that optimizes runtime complexity and memory usage."
+    },
+    "image-gen": {
+      "name": "Dream Visualizer",
+      "desc": "Visual synthesis module enabling latent-space diffusion for asset creation."
+    },
+    "summarizer": {
+      "name": "Essence Extractor",
+      "desc": "Context-aware summarization module for multi-document semantic compression."
+    },
+    "philosopher": {
+      "name": "Zen Thinker",
+      "desc": "Cognitive reasoning module designed for ethical analysis and abstract logic."
+    },
+    "brand-genius": {
+      "name": "Brand Identity",
+      "desc": "Marketing intelligence skill for multi-channel identity and naming synthesis."
+    }
+  },
+  "common": {
+    "detail": "Detail",
+    "deploy": "Install",
+    "synced": "Installed",
+    "installed": "Installed",
+    "success": "Success",
+    "failed": "Failed"
+  },
+  "auth": {
+    "title": "Sign in to SkillHub",
+    "subtitle": "Connect your account to sync skills across devices",
+    "connecting": "Connecting to GitHub...",
+    "authorized": "Authorization successful",
+    "githubBtn": "Continue with GitHub",
+    "secure": "Secure, read-only access to your public repositories",
+    "agree": "I agree to the Terms of Service and Privacy Policy"
+  },
+  "modal": {
+    "processing": "Processing",
+    "runBtn": "Install Skill"
+  }
+}
