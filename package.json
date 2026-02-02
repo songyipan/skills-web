@@ -18,5 +18,11 @@
   "packageManager": "pnpm@10.4.1",
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "react-hook-form": "^7.71.1",
+    "sonner": "^2.0.7",
+    "zod": "^3.25.76"
   }
 }

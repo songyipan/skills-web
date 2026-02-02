@@ -35,10 +35,18 @@
   "library": {
     "title": "我的技能",
     "desc": "已下载 AI 技能的管理控制台。",
-    "synced": "已安装",
+    "synced": "SKILL",
     "emptyTitle": "仓库空空如也",
-    "emptyDesc": "在商店中寻找适合您助手的技能并添加。",
-    "emptyBtn": "前往商店"
+    "emptyDesc": "上传您的SKILL 到 SkillHub，使更多人发现。",
+    "emptyBtn": "上传SKILL",
+    "addSkills": {
+      "skillsName": "技能名称",
+      "skillsDesc": "描述",
+      "githubUrl": "GitHub URL",
+      "skillsNamePlaceholder": "请输入技能名称",
+      "skillsDescPlaceholder": "请输入技能描述",
+      "githubUrlPlaceholder": "请输入 GitHub URL"
+    }
   },
   "activity": {
     "title": "同步日志",
@@ -95,5 +103,9 @@
   "modal": {
     "processing": "处理中",
     "runBtn": "安装技能"
+  },
+  "btn": {
+    "submit": "提交",
+    "cancel": "取消"
   }
 }

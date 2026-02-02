@@ -35,10 +35,18 @@
   "library": {
     "title": "My Skills",
     "desc": "Management console for your downloaded AI capabilities.",
-    "synced": "Installed",
+    "synced": "Skills",
     "emptyTitle": "Empty Library",
-    "emptyDesc": "Browse the marketplace to find skills to add to your assistant.",
-    "emptyBtn": "Open Store"
+    "emptyDesc": "Upload skills to your library to get started.",
+    "emptyBtn": "Upload Skill",
+    "addSkills": {
+      "skillsName": "Skill Name",
+      "skillsDesc": "Description",
+      "githubUrl": "GitHub URL",
+      "skillsNamePlaceholder": "Please enter skill name",
+      "skillsDescPlaceholder": "Please enter skill description",
+      "githubUrlPlaceholder": "Please enter GitHub URL"
+    }
   },
   "activity": {
     "title": "Sync History",
@@ -95,5 +103,9 @@
   "modal": {
     "processing": "Processing",
     "runBtn": "Install Skill"
+  },
+  "btn": {
+    "submit": "Submit",
+    "cancel": "Cancel"
   }
 }

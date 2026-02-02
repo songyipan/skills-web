@@ -24,6 +24,13 @@
   --color-input: oklch(0.922 0 0);
 
   --skillhub-glow: rgba(79, 70, 229, 0.1);
+
+  /* 报错的颜色 */
+  --color-error: oklch(0.98 0.05 0);
+  /* 警告的颜色 */
+  --color-warning: oklch(0.98 0.5 0);
+  /* 成功的颜色 */
+  --color-success: oklch(0.98 0.5 0);
 }
 
 .dark {
@@ -44,6 +51,13 @@
   --color-input: oklch(0.25 0 0);
 
   --skillhub-glow: rgba(99, 102, 241, 0.3);
+
+  /* 错误颜色 */
+  --color-error: oklch(62.748% 0.19654 15.785);
+  /* 警告颜色 */
+  --color-warning: oklch(0.98 0.5 0);
+  /* 成功颜色 */
+  --color-success: oklch(0.98 0.5 0);
 }
 
 body {
