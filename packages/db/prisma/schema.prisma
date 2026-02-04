@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "../apps/web/app/generated/prisma"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -32,7 +32,6 @@ model Skill {
   skillCategoryId String?
 }
 
-// Skill 分类
 model SkillCategory {
   id     String  @id @default(cuid())
   name   String  @unique
