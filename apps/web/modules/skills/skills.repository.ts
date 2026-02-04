@@ -22,3 +22,8 @@ export async function createSkill({
     },
   });
 }
+
+// 获取skills分类
+export async function getSkillsCategories() {
+  return prisma.skillCategory.findMany();
+}
