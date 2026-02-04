@@ -4,6 +4,8 @@ import { ViewContainer } from "@workspace/ui/components";
 import { useTranslation } from "@workspace/ui/hooks";
 import { Category, Skill } from "@workspace/ui/types";
 import { useEffect, useState } from "react";
+import { getSkillsCategories as getSkillsCategoriesActions } from "@/app/actions/skills";
+import { SkillCategory } from "@repo/db";
 import {
   BookOpen,
   Code2,
@@ -85,23 +87,25 @@ const SKILLS: Skill[] = [
   },
 ];
 
-const CATEGORIES: Category[] = [
-  "All",
-  "Creative",
-  "Logic",
-  "Coding",
-  "Visual",
-  "Utility",
-];
-
 export default function ExplorePage() {
   const [isClient, setIsClient] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<Category>("All");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [categories, setCategories] = useState<SkillCategory[]>([]);
   const { t } = useTranslation();
 
-  useEffect(() => {
+  const getSkillsCategories = () => {
     setIsClient(true);
+    getSkillsCategoriesActions()
+      .then((res) => {
+        console.log("categories", res);
+        setCategories(res);
+      })
+      .catch(console.error);
+  };
+
+  useEffect(() => {
+    getSkillsCategories();
   }, []);
 
   const filteredSkills = SKILLS.filter((skill) => {
@@ -126,17 +130,17 @@ export default function ExplorePage() {
       <div className="p-6 lg:p-12 lg:px-16 max-w-[1600px] mx-auto space-y-12 lg:space-y-16 pb-40 lg:pb-0">
         <div className="flex flex-col gap-6 border-b border-border pb-10">
           <div className="flex gap-3 bg-card/40 p-1.5 rounded-xl border border-border overflow-x-auto no-scrollbar max-w-fit">
-            {CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
                 className={`px-6 lg:px-10 py-2.5 rounded-lg text-[10px] lg:text-[11px] font-black uppercase tracking-[0.15em] whitespace-nowrap transition-all ${
-                  selectedCategory === cat
+                  selectedCategory === cat.id
                     ? "bg-primary text-primary-foreground shadow-md scale-105"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
                 }`}
               >
-                {t(`categories.${cat}`)}
+                {cat.name}
               </button>
             ))}
           </div>

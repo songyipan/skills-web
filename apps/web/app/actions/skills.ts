@@ -3,6 +3,7 @@
 // import { prisma } from "@/lib/db";
 import { createSkill as createSkillService } from "@/modules/skills/skills.service";
 import { SkillsDto } from "@/modules/skills/types/skills.dto";
+import { getSkillsCategoriesService } from "@/modules/skills/skills.service";
 
 export async function createSkill({
   name,
@@ -11,6 +12,10 @@ export async function createSkill({
   githubUrl,
 }: SkillsDto) {
   return createSkillService({ name, desc, userId, githubUrl });
+}
+
+export async function getSkillsCategories() {
+  return getSkillsCategoriesService();
 }
 
 export async function deleteSkill(userId: string, skillId: string) {

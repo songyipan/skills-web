@@ -1,6 +1,5 @@
 import * as skillsRepository from "./skills.repository";
 import { SkillsDto } from "./types/skills.dto";
-import { skillSchema } from "./skills.schema";
 
 export const createSkill = async ({
   name,
@@ -20,7 +19,7 @@ export const createSkill = async ({
   }
 };
 
-export const getSkills = async () => {
+export const getSkillsCategoriesService = async () => {
   try {
     const skills = await skillsRepository.getSkillsCategories();
     return skills;
