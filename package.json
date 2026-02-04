@@ -7,8 +7,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "db:generate": "cd packages/db && pnpm prisma generate",
-    "db:migrate": "cd packages/db && pnpm prisma migrate dev",
+    "db:gen": "cd packages/db && pnpm prisma generate",
+    "db:mig": "cd packages/db && pnpm prisma migrate dev",
     "db:studio": "cd packages/db && pnpm prisma studio",
     "db:push": "cd packages/db && pnpm prisma db push"
   },
