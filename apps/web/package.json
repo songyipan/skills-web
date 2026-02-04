@@ -6,18 +6,10 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "postinstall": "cd /Users/xiaosong/code/mycode/skills-web/packages/db && pnpm prisma generate",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "typecheck": "tsc --noEmit",
-    "prisma:generate": "cd /Users/xiaosong/code/mycode/skills-web/packages/db && pnpm prisma generate",
-    "prisma:migrate": "cd /Users/xiaosong/code/mycode/skills-web/packages/db && pnpm prisma migrate dev",
-    "prisma:studio": "cd /Users/xiaosong/code/mycode/skills-web/packages/db && pnpm prisma studio",
-    "prisma:push": "cd /Users/xiaosong/code/mycode/skills-web/packages/db && pnpm prisma db push"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@workspace/db": "workspace:*",
@@ -37,7 +29,6 @@
     "@types/react-dom": "^19.2.3",
     "@workspace/eslint-config": "workspace:^",
     "@workspace/typescript-config": "workspace:*",
-    "dotenv": "^17.2.3",
     "eslint": "^9.39.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
