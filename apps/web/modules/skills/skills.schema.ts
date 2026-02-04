@@ -9,3 +9,5 @@ export const skillSchema = z.object({
     .optional(),
   githubUrl: z.string().nonempty("Github URL is required."),
 });
+
+export type SkillsSchema = z.infer<typeof skillSchema>;
