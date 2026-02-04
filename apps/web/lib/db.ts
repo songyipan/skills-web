@@ -1,1 +1,1 @@
-export { prisma } from "@workspace/db/client";
+export { prisma } from "../../../src/client";
