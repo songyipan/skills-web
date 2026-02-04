@@ -19,3 +19,13 @@ export const createSkill = async ({
     console.log(error);
   }
 };
+
+export const getSkills = async () => {
+  try {
+    const skills = await skillsRepository.getSkillsCategories();
+    return skills;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
