@@ -3,7 +3,8 @@
 import { LoginPage } from "@/components/skill-hub";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { createUserAction } from "@/app/actions/user";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Login() {
   const { data: session } = useSession();
@@ -11,15 +12,20 @@ export default function Login() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
+
+  const onLoginSuccess = useCallback( async () => {
     if (session) {
-      console.log("=== 登录结果 ===", session);
       setIsAuthorized(true);
-      setTimeout(() => {
-        router.push("/");
-      }, 1000);
+      const res = await createUserAction({ username: session.user?.name || "", image: session.user?.image || "", email: session.user?.email || undefined });
+      console.log("=== 创建用户结果 ===", res);
+      router.push("/");
     }
   }, [session, router]);
+
+
+  useEffect(() => {
+    onLoginSuccess();
+  }, [onLoginSuccess]);
 
   const handleLogin = () => {
     setIsConnecting(true);

@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Button } from "@workspace/ui/components";
+import {  Button } from "@workspace/ui/components";
 import { useTranslation } from "@workspace/ui/hooks";
 import { Layers } from "lucide-react";
 import { useState } from "react";
@@ -27,20 +27,8 @@ export default function MyPage() {
   return (
     <div className="p-6 lg:p-12 lg:px-16 max-w-[1600px] mx-auto space-y-12 lg:space-y-16 pb-40 lg:pb-0">
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-        <div className="space-y-3 lg:space-y-4">
-          <h2 className="text-3xl  font-black tracking-tight">
-            {t("library.title")}
-          </h2>
-          <p className="text-muted-foreground text-lg lg:text-2xl font-medium max-w-3xl leading-relaxed">
-            {t("library.desc")}
-          </p>
-        </div>
-        <Badge
-          variant="indigo"
-          className="h-10 lg:h-14 px-8 lg:px-12 text-[11px] lg:text-[13px] tracking-[0.2em] font-black"
-        >
-          0 {t("library.synced")}
-        </Badge>
+     
+     
       </div>
 
       <div className=" l flex flex-col items-center justify-center border-2 border-dashed border-border rounded-[3rem] lg:rounded-[5rem] bg-card/10 p-12 text-center">
