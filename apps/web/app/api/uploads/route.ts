@@ -4,27 +4,32 @@ import { uploadSchema } from "@/modules/uploads/uploads.schema";
 import type { UploadResponseDto } from "@/modules/uploads/types/uploads.res";
 
 export async function POST(request: NextRequest) {
-  const formData = await request.formData();
+  try {
+    const formData = await request.formData();
 
-  // 从 FormData 中提取需要校验的字段
-  const raw = {
-    fileName: formData.get("fileName") ?? undefined,
-    file: formData.get("file") ?? undefined,
-  };
+    // ... 你的校验逻辑 ...
+    const parsed = uploadSchema.safeParse({
+      fileName: formData.get("fileName") ?? undefined,
+      file: formData.get("file") ?? undefined,
+    });
 
-  const parsed = uploadSchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Check your fields" }, { status: 400 });
+    }
 
-  if (!parsed.success) {
-    return NextResponse.json<UploadResponseDto>(
-      { error: "Please check your fileName and file" },
-      { status: 400 }
+    // 调用 Service 获取 URL
+    const url = await uploadSkills(formData);
+
+    // ✨ 关键点：这里必须返回 NextResponse
+    return NextResponse.json<UploadResponseDto>({
+      url: url,
+      message: "Success",
+    });
+  } catch (error: any) {
+    console.error(error);
+    return NextResponse.json(
+      { error: error.message || "Upload failed" },
+      { status: 500 },
     );
   }
-
-  // 目前文件本身与 fileName 仍由 services/uploads.ts 处理
-  // 如需更严格，可以将 parsed.data 传递给 service 分层使用
-  console.log("POST /api/uploads/skills", parsed.data);
-
-  // 将已经读取过的 formData 传给 service，避免重复读取 request.body
-  return uploadSkills(formData);
 }
