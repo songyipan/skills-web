@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut, useSession } from 'next-auth/react'
 import { Badge, Button } from "@workspace/ui/components";
 import { useTranslation } from "@workspace/ui/hooks";
 import { useRouter, usePathname } from "next/navigation";
@@ -10,19 +11,24 @@ import {
   Layers,
   LayoutGrid,
   LogOut,
-  Monitor,
+  User,
+
   Moon,
   Search,
   Sun,
   Zap,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import Image from 'next/image';
 
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  const { data: session } = useSession();
+
   const [isClient, setIsClient] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const router = useRouter();
@@ -64,8 +70,12 @@ export default function MainLayout({
     });
   };
 
-  const handleLogout = () => {
-    router.push("/login");
+  const handleLogout = async () => {
+    try {
+      await signOut({ redirect: true, callbackUrl: "/login" });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (!isClient) {
@@ -132,23 +142,28 @@ export default function MainLayout({
         <div className="p-6 space-y-4">
           <div className="p-4 bg-muted/30 rounded-2xl border border-border flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-              <Monitor className="w-4 h-4 text-primary" />
+              {
+                session ? <Image src={session.user?.image || ""}  width={40} height={40} alt={session.user?.name || ""}  className="w-8 h-8 rounded-full" unoptimized /> : <User className="w-4 h-4" />
+              }
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-black text-foreground truncate uppercase tracking-tight">
-                {t("nav.nexusCore")}
+             
+                {session?.user?.name || ""}
               </p>
-              <Badge variant="indigo" className="mt-1 h-4 px-2 text-[8px]">
+             {
+              session &&  <Badge variant="indigo" className="mt-1 h-4 px-2 text-[8px]">
                 {t("nav.linked")}
               </Badge>
+             }
             </div>
           </div>
           <button
             onClick={handleLogout}
             className="w-full flex items-center justify-center gap-2 py-3 text-muted-foreground hover:text-destructive text-[10px] font-black uppercase tracking-widest transition-colors border border-transparent hover:border-destructive/20 rounded-xl"
           >
-            <LogOut className="w-3.5 h-3.5" />
-            {t("nav.logout")}
+            {session ? <LogOut className="w-3.5 h-3.5" /> : <User className="w-3.5 h-3.5" />}
+            { session ? t("nav.logout") : "To Login"}
           </button>
         </div>
       </aside>

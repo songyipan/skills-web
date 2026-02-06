@@ -7,11 +7,11 @@ export async function getOrCreateUser(
   name?: string,
   image?: string,
 ) {
-  return prisma.user.upsert({
-    where: { email },
-    update: { name, image },
-    create: { email, name, image },
-  });
+  // return prisma.user.upsert({
+  //   where: { email },
+  //   update: { name, image },
+  //   create: { email, name, image },
+  // });
 }
 
 export async function getUserByEmail(email: string) {
