@@ -10,18 +10,49 @@ import {
 } from "@workspace/ui/components";
 import { useTranslation } from "@workspace/ui/hooks";
 import { Layers } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { UploadSkills } from "./components/upload-skills";
-import * as z from "zod";
-import { skillSchema } from "@/modules/skills/skills.schema";
 import { RefreshCcw } from "lucide-react";
+import { UserApiKey } from "@repo/db";
+import { getApiKeyService } from "@/modules/apiKey/apiKey.service";
+import { toast, Toaster } from "sonner";
 
 export default function MyPage() {
   const [isUpload, setIsUpload] = useState(false);
+  const [apiKey, setApiKey] = useState<UserApiKey>({} as UserApiKey);
 
   const { t } = useTranslation();
 
-  const handleSubmit = async (data: z.infer<typeof skillSchema>) => {};
+  const getApiKey = async () => {
+    try {
+      const res = await getApiKeyService({ userId: apiKey.userId });
+      setApiKey(res || ({} as UserApiKey));
+    } catch (error) {
+      toast.error("Get apiKey failed");
+    }
+  };
+
+  const handleResetApiKey = async () => {
+    try {
+      // todo: 调用重置apiKey的服务
+    } catch (error) {
+      toast.error("Reset apiKey failed");
+    }
+  };
+
+  const apiKeyString = useMemo(() => {
+    return (
+      apiKey.apiKey?.substring(12, 20) +
+        "****" +
+        apiKey.apiKey?.substring(24) || ""
+    );
+  }, [apiKey.apiKey]);
+
+  useEffect(() => {
+    getApiKey();
+  }, []);
+
+  const handleSubmit = async () => {};
 
   return (
     <div className="p-6 lg:p-12 lg:px-16 max-w-[1600px] mx-auto space-y-12 lg:space-y-16 pb-40 lg:pb-0">
@@ -35,7 +66,7 @@ export default function MyPage() {
           </CardHeader>
           <CardContent className="">
             <div className="bg-muted px-4 py-3 rounded-xl flex flex-row items-center justify-between">
-              <p>test</p>
+              <p>{apiKeyString}</p>
               <div className="  flex flex-row items-center justify-center gap-2">
                 <RefreshCcw className="  w-4 h-4 text-muted-foreground/60 cursor-pointer" />
                 <p className="  text-sm text-muted-foreground/60 cursor-pointer">
@@ -72,6 +103,7 @@ export default function MyPage() {
           </div>
         )}
       </div>
+      <Toaster position="top-center" />
     </div>
   );
 }

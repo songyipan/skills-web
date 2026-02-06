@@ -7,7 +7,7 @@ export const createApiKey = async ({
   expiresAt,
   apiKey,
 }: CreateApiKeyDto) => {
-  prisma.apiKey.create({
+  return prisma.userApiKey.create({
     data: {
       userId,
       apiKey: apiKey,
@@ -17,7 +17,7 @@ export const createApiKey = async ({
 };
 // 查询用户是否存在apiKey
 export const findApiKeyByUserId = async (userId: string) => {
-  return prisma.apiKey.findFirst({
+  return prisma.userApiKey.findFirst({
     where: {
       userId,
     },
@@ -30,7 +30,7 @@ export const updateApiKey = async ({
   expiresAt,
   apiKey,
 }: UpdateApiKeyDto) => {
-  prisma.apiKey.update({
+  return prisma.userApiKey.update({
     where: {
       id,
     },

@@ -9,16 +9,14 @@ datasource db {
 model User {
   id        String          @id @default(cuid())
   email     String?         @unique
-  username      String          @unique
+  username  String          @unique
   image     String?
   skills    Skill[]
   favorites FavoriteSkill[]
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
-  apiKeys   ApiKey[]
+  apiKeys   UserApiKey[]
 }
-
-
 
 model Skill {
   id              String          @id @default(cuid())
@@ -51,9 +49,9 @@ model FavoriteSkill {
   @@unique([userId, skillId])
 }
 
-model ApiKey {
+model UserApiKey {
   id        String   @id @default(cuid())
-  apiKey       String   @unique  // 直接存储明文（简单场景用）
+  apiKey    String   @unique // 直接存储明文（简单场景用）
   createdAt DateTime @default(now())
   expiresAt DateTime // 过期时间
   userId    String

@@ -7,6 +7,7 @@ import { createUserAction } from "@/app/actions/user";
 import { useCallback, useEffect, useState } from "react";
 import { createApiKeyService } from "@/modules/apiKey/apiKey.service";
 import { genApiKey } from "@/lib/utils/genApiKey";
+import { toast, Toaster } from "sonner";
 
 export default function Login() {
   const { data: session } = useSession();
@@ -17,7 +18,6 @@ export default function Login() {
   const onLoginSuccess = useCallback(async () => {
     try {
       if (session) {
-        setIsAuthorized(true);
         const res = await createUserAction({
           username: session.user?.name || "",
           image: session.user?.image || "",
@@ -30,10 +30,13 @@ export default function Login() {
           expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
           apiKey: genApiKey(),
         });
+        setIsAuthorized(true);
+        toast.success("登录成功");
         router.push("/");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log("=== 登录失败 ===", error);
+      toast.error("Please try again later.");
     }
   }, [session, router]);
 
@@ -45,17 +48,21 @@ export default function Login() {
     setIsConnecting(true);
     try {
       signIn("github");
-    } catch (error) {
+    } catch (error: any) {
       console.log("=== 登录失败 ===", error);
       setIsConnecting(false);
+      toast.error("Please try again later.");
     }
   };
 
   return (
-    <LoginPage
-      onLogin={handleLogin}
-      isConnecting={isConnecting}
-      isAuthorized={isAuthorized}
-    />
+    <div className=" flex flex-col items-center justify-center">
+      <LoginPage
+        onLogin={handleLogin}
+        isConnecting={isConnecting}
+        isAuthorized={isAuthorized}
+      />
+      <Toaster position="top-center" />
+    </div>
   );
 }

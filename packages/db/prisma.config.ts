@@ -14,6 +14,8 @@ const dbUrl = isManagement
   ? process.env.DIRECT_URL || process.env.DATABASE_URL || ""
   : process.env.DATABASE_URL || "";
 
+console.log(dbUrl, "-----------------------dbUrl");
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   datasource: {
