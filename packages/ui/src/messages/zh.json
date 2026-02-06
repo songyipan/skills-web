@@ -34,11 +34,12 @@
   },
   "library": {
     "title": "我的技能",
-    "desc": "已下载 AI 技能的管理控制台。",
+    "desc": "请勿与他人分享您的 API key，或在浏览器或其他客户端代码中暴露它",
     "synced": "SKILL",
     "emptyTitle": "仓库空空如也",
     "emptyDesc": "上传您的SKILL 到 SkillHub，使更多人发现。",
     "emptyBtn": "上传SKILL",
+    "refresh": "重置并复制",
     "addSkills": {
       "skillsName": "技能名称",
       "skillsDesc": "描述",

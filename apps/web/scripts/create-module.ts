@@ -77,7 +77,10 @@ export const create${pascalName}Service = async (data: Create${pascalName}Dto) =
   // 写入文件
   await writeFile(path.join(typesDir, `${name}.dto.ts`), dtoContent);
   await writeFile(path.join(baseDir, `${name}.scheme.ts`), schemeContent);
-  await writeFile(path.join(baseDir, `${name}.repository.ts`), repositoryContent);
+  await writeFile(
+    path.join(baseDir, `${name}.repository.ts`),
+    repositoryContent,
+  );
   await writeFile(path.join(baseDir, `${name}.service.ts`), serviceContent);
 
   console.log(`✅ 模块 "${name}" 创建成功！`);
@@ -94,4 +97,9 @@ const args = process.argv.slice(2);
 const nameIndex = args.indexOf("--name");
 const name = nameIndex !== -1 ? args[nameIndex + 1] : null;
 
-createModule(name);
+if (name) {
+  createModule(name);
+} else {
+  console.error("❌ 请提供模块名称，例如: pnpm mkmod --name user");
+  process.exit(1);
+}

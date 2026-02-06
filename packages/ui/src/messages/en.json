@@ -34,11 +34,13 @@
   },
   "library": {
     "title": "My Skills",
-    "desc": "Management console for your downloaded AI capabilities.",
+    "desc": "Do not share your API key with others, or expose it in browser or other client-side code.",
     "synced": "Skills",
     "emptyTitle": "Empty Library",
     "emptyDesc": "Upload skills to your library to get started.",
     "emptyBtn": "Upload Skill",
+    "refresh": "Reset and Copy",
+
     "addSkills": {
       "skillsName": "Skill Name",
       "skillsDesc": "Description",

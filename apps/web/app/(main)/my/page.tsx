@@ -1,34 +1,50 @@
 "use client";
 
-import {  Button } from "@workspace/ui/components";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@workspace/ui/components";
 import { useTranslation } from "@workspace/ui/hooks";
 import { Layers } from "lucide-react";
 import { useState } from "react";
 import { UploadSkills } from "./components/upload-skills";
 import * as z from "zod";
 import { skillSchema } from "@/modules/skills/skills.schema";
-
-import { createSkill } from "@/app/actions/skills";
+import { RefreshCcw } from "lucide-react";
 
 export default function MyPage() {
   const [isUpload, setIsUpload] = useState(false);
 
   const { t } = useTranslation();
 
-  const handleSubmit = async (data: z.infer<typeof skillSchema>) => {
-    await createSkill({
-      name: data.name,
-      desc: data.desc,
-      githubUrl: data.githubUrl,
-      userId: "12",
-    });
-  };
+  const handleSubmit = async (data: z.infer<typeof skillSchema>) => {};
 
   return (
     <div className="p-6 lg:p-12 lg:px-16 max-w-[1600px] mx-auto space-y-12 lg:space-y-16 pb-40 lg:pb-0">
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-     
-     
+      <div className="flex flex-row">
+        <Card className=" w-full flex-row ">
+          <CardHeader>
+            <CardTitle>Api Key</CardTitle>
+            <CardDescription className=" mt-1.5 ">
+              {t("library.desc")}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="">
+            <div className="bg-muted px-4 py-3 rounded-xl flex flex-row items-center justify-between">
+              <p>test</p>
+              <div className="  flex flex-row items-center justify-center gap-2">
+                <RefreshCcw className="  w-4 h-4 text-muted-foreground/60 cursor-pointer" />
+                <p className="  text-sm text-muted-foreground/60 cursor-pointer">
+                  {t("library.refresh")}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className=" l flex flex-col items-center justify-center border-2 border-dashed border-border rounded-[3rem] lg:rounded-[5rem] bg-card/10 p-12 text-center">
