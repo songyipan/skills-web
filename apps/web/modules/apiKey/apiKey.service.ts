@@ -14,7 +14,7 @@ export const updateApiKeyService = async ({
   apiKey,
 }: UpdateApiKeyDto) => {
   try {
-    await updateApiKey({ id, expiresAt, apiKey });
+    return await updateApiKey({ id, expiresAt, apiKey });
   } catch (error) {
     throw new Error("Update apiKey failed");
   }

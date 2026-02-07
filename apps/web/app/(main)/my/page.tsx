@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Button,
   Card,
@@ -14,8 +13,10 @@ import { useEffect, useMemo, useState } from "react";
 import { UploadSkills } from "./components/upload-skills";
 import { RefreshCcw } from "lucide-react";
 import { UserApiKey } from "@repo/db";
-import { getApiKeyService } from "@/modules/apiKey/apiKey.service";
+import { getApiKeyService, updateApiKeyService } from "@/modules/apiKey/apiKey.service";
 import { toast, Toaster } from "sonner";
+import { genApiKey } from "@/lib/utils/genApiKey";
+
 
 export default function MyPage() {
   const [isUpload, setIsUpload] = useState(false);
@@ -33,10 +34,24 @@ export default function MyPage() {
   };
 
   const handleResetApiKey = async () => {
+    const loadingId = toast.loading("Resetting apiKey...");
     try {
-      // todo: 调用重置apiKey的服务
+      const res = await updateApiKeyService({
+        id: apiKey.id,
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+        apiKey: genApiKey(),
+      }); 
+      console.log("=== 重置 apiKey 结果 ===", res);
+      toast.dismiss(loadingId);
+      toast.success("Reset apiKey success", {
+        duration: 3000,
+      });
+      setApiKey(res || ({} as UserApiKey));
     } catch (error) {
-      toast.error("Reset apiKey failed");
+      toast.dismiss(loadingId);
+      toast.error("Reset apiKey failed", {
+        duration: 3000,
+      });
     }
   };
 
@@ -67,7 +82,7 @@ export default function MyPage() {
           <CardContent className="">
             <div className="bg-muted px-4 py-3 rounded-xl flex flex-row items-center justify-between">
               <p>{apiKeyString}</p>
-              <div className="  flex flex-row items-center justify-center gap-2">
+              <div onClick={handleResetApiKey} className="  flex flex-row items-center justify-center gap-2">
                 <RefreshCcw className="  w-4 h-4 text-muted-foreground/60 cursor-pointer" />
                 <p className="  text-sm text-muted-foreground/60 cursor-pointer">
                   {t("library.refresh")}
