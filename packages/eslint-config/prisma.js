@@ -5,7 +5,7 @@ import turboPlugin from "eslint-plugin-turbo"
 import tseslint from "typescript-eslint"
 
 /**
- * A shared ESLint configuration for the repository.
+ * A shared ESLint configuration for Prisma packages.
  *
  * @type {import("eslint").Linter.Config}
  * */
@@ -19,8 +19,6 @@ export const config = [
     },
     rules: {
       "turbo/no-undeclared-env-vars": "warn",
-      "eqeqeq": 2,
-      'max-lines-per-function': ['error', 300],
     },
   },
   {
@@ -29,6 +27,8 @@ export const config = [
     },
   },
   {
-    ignores: ["dist/**"],
+    ignores: ["dist/**", "prisma/generated/**"],
   },
 ]
+
+export default config

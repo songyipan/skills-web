@@ -1,15 +1,16 @@
 import { prisma } from "@/lib/db";
-import { SkillsDto } from "./types/skills.dto";
+import { CreateSkillDto } from "./types/skills.dto";
 import { skillSchema } from "./skills.schema";
 
 export async function createSkill({
   name,
-  userId,
   desc,
-  githubUrl,
-}: SkillsDto) {
+  mainContent,
+  userId,
+  downloadUrl,
+}: CreateSkillDto ) {
   // 1. 先用 Zod 做校验（只校验 schema 中关心的字段）
-  const result = skillSchema.safeParse({ name, desc, githubUrl });
+  const result = skillSchema.safeParse({ name, desc, mainContent, downloadUrl });
   if (!result.success) {
     throw new Error(result.error.message);
   }
@@ -18,7 +19,8 @@ export async function createSkill({
       name,
       userId,
       desc,
-      githubUrl,
+      mainContent,
+      downloadUrl,
     },
   });
 }

@@ -6,7 +6,9 @@
   "exports": {
     "./base": "./base.js",
     "./next-js": "./next.js",
-    "./react-internal": "./react-internal.js"
+    "./react-internal": "./react-internal.js",
+    "./utils": "./utils.js",
+    "./prisma": "./prisma.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

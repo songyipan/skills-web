@@ -10,9 +10,10 @@ import {
 import { useTranslation } from "@workspace/ui/hooks";
 import { Layers } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { UploadSkills } from "./components/upload-skills";
+
 import { RefreshCcw } from "lucide-react";
 import { UserApiKey } from "@repo/db";
+import { copyText } from "@workspace/utils";
 import { getApiKeyService, updateApiKeyService } from "@/modules/apiKey/apiKey.service";
 import { toast, Toaster } from "sonner";
 import { genApiKey } from "@/lib/utils/genApiKey";
@@ -41,7 +42,7 @@ export default function MyPage() {
         expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
         apiKey: genApiKey(),
       }); 
-      console.log("=== 重置 apiKey 结果 ===", res);
+      await copyText(res?.apiKey || "");
       toast.dismiss(loadingId);
       toast.success("Reset apiKey success", {
         duration: 3000,
@@ -109,12 +110,6 @@ export default function MyPage() {
             <Button onClick={() => setIsUpload(true)} className="rounded-xl ">
               {t("library.emptyBtn")}
             </Button>
-          </div>
-        )}
-
-        {isUpload && (
-          <div className="flex w-full flex-col items-center justify-center">
-            <UploadSkills handleSubmit={handleSubmit} />
           </div>
         )}
       </div>

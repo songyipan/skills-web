@@ -22,8 +22,9 @@ model Skill {
   id              String          @id @default(cuid())
   name            String          @unique
   downloads       Int             @default(0)
-  desc            String?
-  githubUrl       String
+  desc            String?         @db.Text
+  mainContent     String?         @db.Text
+  downloadUrl     String
   userId          String
   user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt       DateTime        @default(now())

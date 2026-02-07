@@ -1,21 +1,31 @@
+import { findUserByApiKeyService } from "../apiKey/apiKey.service";
 import * as skillsRepository from "./skills.repository";
 import { SkillsDto } from "./types/skills.dto";
 
 export const createSkill = async ({
   name,
-  userId,
   desc,
-  githubUrl,
+  mainContent,
+  downloadUrl,
+  apiKey,
 }: SkillsDto) => {
   try {
-    await skillsRepository.createSkill({
+    const resUser = await findUserByApiKeyService(apiKey);
+
+    if (!resUser) {
+      throw new Error("ApiKey Error")
+    }
+
+    return await skillsRepository.createSkill({
       name,
-      userId,
+      userId: resUser.id,
       desc,
-      githubUrl,
+      mainContent,
+      downloadUrl,
     });
   } catch (error) {
     console.log(error);
+    throw new Error(error instanceof Error ? error.message : String(error));
   }
 };
 

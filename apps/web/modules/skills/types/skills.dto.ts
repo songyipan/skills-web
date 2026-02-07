@@ -1,6 +1,12 @@
 export interface SkillsDto {
-  userId: string;
   name: string;
-  githubUrl: string;
+  mainContent?: string;
+  downloadUrl: string;
   desc?: string;
+  apiKey: string;
+}
+
+
+export interface CreateSkillDto  extends Omit<SkillsDto, 'apiKey'> {
+  userId: string;
 }

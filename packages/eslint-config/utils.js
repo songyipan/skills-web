@@ -5,7 +5,7 @@ import turboPlugin from "eslint-plugin-turbo"
 import tseslint from "typescript-eslint"
 
 /**
- * A shared ESLint configuration for the repository.
+ * A shared ESLint configuration for utils packages.
  *
  * @type {import("eslint").Linter.Config}
  * */
@@ -19,8 +19,6 @@ export const config = [
     },
     rules: {
       "turbo/no-undeclared-env-vars": "warn",
-      "eqeqeq": 2,
-      'max-lines-per-function': ['error', 300],
     },
   },
   {

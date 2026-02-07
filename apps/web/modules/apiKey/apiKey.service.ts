@@ -2,6 +2,7 @@
 import {
   createApiKey,
   findApiKeyByUserId,
+  findUserByApiKey,
   updateApiKey,
 } from "./apiKey.repository";
 import { CreateApiKeyDto, UpdateApiKeyDto } from "./types/apiKey.dto";
@@ -49,5 +50,16 @@ export const getApiKeyService = async ({ userId }: { userId: string }) => {
   } catch (error) {
     console.log("=== 获取 apiKey 失败 ===", error);
     throw new Error("Get apiKey failed");
+  }
+};
+
+
+// 根据apiKey查询用户
+export const findUserByApiKeyService = async (apiKey: string) => {
+  try {
+    return await findUserByApiKey(apiKey);
+  } catch (error) {
+    console.log("=== 根据 apiKey 查询用户失败 ===", error);
+    throw new Error("Find user by apiKey failed");
   }
 };

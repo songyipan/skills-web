@@ -1,7 +1,6 @@
 {
-  "extends": "@workspace/typescript-config/base.json",
+  "extends": "@workspace/typescript-config/prisma.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "types": ["node"]
+    "baseUrl": "."
   }
 }

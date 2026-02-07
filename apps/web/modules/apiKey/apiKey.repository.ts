@@ -40,3 +40,15 @@ export const updateApiKey = async ({
     },
   });
 };
+
+// 根据apiKey查询用户
+export const findUserByApiKey = async (apiKey: string) => {
+  return prisma.userApiKey.findFirst({
+    where: {
+      apiKey,
+    },
+    include: {
+      user: true,
+    },
+  });
+};
