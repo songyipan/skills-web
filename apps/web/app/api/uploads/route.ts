@@ -11,10 +11,14 @@ export async function POST(request: NextRequest) {
     const parsed = uploadSchema.safeParse({
       fileName: formData.get("fileName") ?? undefined,
       file: formData.get("file") ?? undefined,
+      apiKey: formData.get("apiKey") ?? undefined,
     });
 
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.message }, { status: 400 });
+      return NextResponse.json(
+        { error: parsed.error.message },
+        { status: 400 },
+      );
     }
 
     // 调用 Service 获取 URL

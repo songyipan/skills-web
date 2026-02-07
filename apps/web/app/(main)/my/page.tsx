@@ -14,10 +14,12 @@ import { useEffect, useMemo, useState } from "react";
 import { RefreshCcw } from "lucide-react";
 import { UserApiKey } from "@repo/db";
 import { copyText } from "@workspace/utils";
-import { getApiKeyService, updateApiKeyService } from "@/modules/apiKey/apiKey.service";
+import {
+  getApiKeyService,
+  updateApiKeyService,
+} from "@/modules/apiKey/apiKey.service";
 import { toast, Toaster } from "sonner";
 import { genApiKey } from "@/lib/utils/genApiKey";
-
 
 export default function MyPage() {
   const [isUpload, setIsUpload] = useState(false);
@@ -41,7 +43,7 @@ export default function MyPage() {
         id: apiKey.id,
         expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
         apiKey: genApiKey(),
-      }); 
+      });
       await copyText(res?.apiKey || "");
       toast.dismiss(loadingId);
       toast.success("Reset apiKey success", {
@@ -83,7 +85,10 @@ export default function MyPage() {
           <CardContent className="">
             <div className="bg-muted px-4 py-3 rounded-xl flex flex-row items-center justify-between">
               <p>{apiKeyString}</p>
-              <div onClick={handleResetApiKey} className="  flex flex-row items-center justify-center gap-2">
+              <div
+                onClick={handleResetApiKey}
+                className="  flex flex-row items-center justify-center gap-2"
+              >
                 <RefreshCcw className="  w-4 h-4 text-muted-foreground/60 cursor-pointer" />
                 <p className="  text-sm text-muted-foreground/60 cursor-pointer">
                   {t("library.refresh")}

@@ -12,13 +12,15 @@ export const createSkill = async ({
   try {
     const resUser = await findUserByApiKeyService(apiKey);
 
+    console.log(resUser, "-------resUser------");
+
     if (!resUser) {
-      throw new Error("ApiKey Error")
+      throw new Error("ApiKey Error");
     }
 
     return await skillsRepository.createSkill({
       name,
-      userId: resUser.id,
+      userId: resUser.user.id,
       desc,
       mainContent,
       downloadUrl,

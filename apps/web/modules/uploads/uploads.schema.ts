@@ -10,15 +10,17 @@ export const uploadSchema = z.object({
     .string()
     .min(1, "File name cannot be empty")
     .max(100, "File name cannot be longer than 100 characters")
-    .optional(),
+    .nonempty("File name is required."),
   file: z.any().refine(
     (file) => {
+      if (!file) return false;
       return file instanceof File;
     },
     {
       message: "Please select a file",
-    }
+    },
   ),
+  apiKey: z.string().nonempty("API Key is required."),
 });
 
 export type UploadSchemaInput = z.infer<typeof uploadSchema>;
