@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@workspace/ui"],
+  serverExternalPackages: ["@prisma/client", "pg", "@prisma/-engines"],
   images: {
     remotePatterns: [
       {
