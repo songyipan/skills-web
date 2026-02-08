@@ -14,9 +14,10 @@ export async function POST(request: NextRequest) {
       apiKey: formData.get("apiKey") ?? undefined,
     });
 
+    console.log(parsed.error?.errors, "parsed----------------");
     if (!parsed.success) {
       return NextResponse.json(
-        { error: parsed.error.message },
+        { error: parsed.error.format() },
         { status: 400 },
       );
     }
