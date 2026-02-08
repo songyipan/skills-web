@@ -33,7 +33,7 @@ export const createApiKeyService = async ({
     throw new Error(result.error.message);
   }
 
-  // 2. 检查用户是否已经有 API key
+  // 2. 检查用户是否已经有 API key 如果有了就执行更新
   const res = await findApiKeyByUserId(userId);
 
   if (res) {
@@ -52,7 +52,6 @@ export const getApiKeyService = async ({ userId }: { userId: string }) => {
     throw new Error("Get apiKey failed");
   }
 };
-
 
 // 根据apiKey查询用户
 export const findUserByApiKeyService = async (apiKey: string) => {

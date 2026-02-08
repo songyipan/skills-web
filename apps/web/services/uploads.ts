@@ -25,3 +25,12 @@ export async function uploadSkills(formData: FormData) {
 
   return publicUrl;
 }
+
+// 删除上传的文件
+export async function deleteUploadedFile(filePath: string) {
+  const { error } = await supabase.storage
+    .from("uploads") // 确保 Bucket 名字和你创建的一致（你代码里写了 upload 和 uploads 两个）
+    .remove([filePath]);
+
+  if (error) throw error;
+}
