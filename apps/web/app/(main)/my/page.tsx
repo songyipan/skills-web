@@ -20,16 +20,30 @@ import {
 } from "@/modules/apiKey/apiKey.service";
 import { toast, Toaster } from "sonner";
 import { genApiKey } from "@/lib/utils/genApiKey";
+import { useSession } from "next-auth/react";
 
 export default function MyPage() {
   const [isUpload, setIsUpload] = useState(false);
   const [apiKey, setApiKey] = useState<UserApiKey>({} as UserApiKey);
 
+  const { data: session, status } = useSession();
+
   const { t } = useTranslation();
 
   const getApiKey = async () => {
+    if (status === "loading") {
+      return;
+    }
+
+    if (status === "unauthenticated") {
+      return;
+    }
+
     try {
-      const res = await getApiKeyService({ userId: apiKey.userId });
+      console.log(session, "session");
+      const res = await getApiKeyService({
+        username: session?.user?.name || "",
+      });
       setApiKey(res || ({} as UserApiKey));
     } catch (error) {
       toast.error("Get apiKey failed");
@@ -68,9 +82,15 @@ export default function MyPage() {
 
   useEffect(() => {
     getApiKey();
-  }, []);
+  }, [session, status]);
 
-  const handleSubmit = async () => {};
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 lg:p-12 lg:px-16 max-w-[1600px] mx-auto space-y-12 lg:space-y-16 pb-40 lg:pb-0">

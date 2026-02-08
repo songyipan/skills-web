@@ -7,6 +7,7 @@ import {
 } from "./apiKey.repository";
 import { CreateApiKeyDto, UpdateApiKeyDto } from "./types/apiKey.dto";
 import { createApiKeySchema } from "./apiKey.scheme";
+import { useSession } from "next-auth/react";
 
 // 更新apiKey
 export const updateApiKeyService = async ({
@@ -44,9 +45,9 @@ export const createApiKeyService = async ({
 };
 
 // 获取apiKey
-export const getApiKeyService = async ({ userId }: { userId: string }) => {
+export const getApiKeyService = async ({ username }: { username: string }) => {
   try {
-    return await findApiKeyByUserId(userId);
+    return await findApiKeyByUserId(username);
   } catch (error) {
     console.log("=== 获取 apiKey 失败 ===", error);
     throw new Error("Get apiKey failed");
