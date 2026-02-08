@@ -18,6 +18,7 @@ export default function Login() {
   const onLoginSuccess = useCallback(async () => {
     try {
       if (session) {
+        setIsAuthorized(true);
         const res = await createUserAction({
           username: session.user?.name || "",
           image: session.user?.image || "",
@@ -30,7 +31,7 @@ export default function Login() {
           expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
           apiKey: genApiKey(),
         });
-        setIsAuthorized(true);
+
         toast.success("登录成功");
         router.push("/");
       }
