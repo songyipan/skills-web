@@ -1,3 +1,5 @@
+"use server";
+
 import { deleteUploadedFile } from "@/services/uploads";
 import { findUserByApiKeyService } from "../apiKey/apiKey.service";
 import * as skillsRepository from "./skills.repository";
@@ -100,5 +102,28 @@ export const getSkillsCategoriesService = async () => {
   } catch (error) {
     console.log(error);
     return [];
+  }
+};
+
+// 获取所有技能（分页）
+export const getAllSkillsService = async ({
+  page,
+  pageSize,
+}: {
+  page?: number;
+  pageSize?: number;
+}) => {
+  try {
+    const result = await skillsRepository.getAllSkills({ page, pageSize });
+    return result;
+  } catch (error) {
+    console.log(error);
+    return {
+      data: [],
+      total: 0,
+      page: page || 1,
+      pageSize: pageSize || 10,
+      totalPages: 0,
+    };
   }
 };

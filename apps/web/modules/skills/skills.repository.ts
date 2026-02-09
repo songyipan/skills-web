@@ -75,9 +75,34 @@ export async function updateSkillByName({
   });
 }
 
-// 获取所有技能
-export async function getAllSkills() {
-  return prisma.skill.findMany();
+// 获取所有技能（分页）
+export async function getAllSkills({
+  page = 1,
+  pageSize = 10,
+}: {
+  page?: number;
+  pageSize?: number;
+}) {
+  const skip = (page - 1) * pageSize;
+
+  const [data, total] = await Promise.all([
+    prisma.skill.findMany({
+      skip,
+      take: pageSize,
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+    prisma.skill.count(),
+  ]);
+
+  return {
+    data,
+    total,
+    page,
+    pageSize,
+    totalPages: Math.ceil(total / pageSize),
+  };
 }
 
 // 模糊查询技能
