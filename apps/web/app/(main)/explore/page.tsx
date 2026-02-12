@@ -6,33 +6,45 @@ import { useTranslation } from "@workspace/ui/hooks";
 import { Sparkles } from "lucide-react";
 import { SkillItem } from "@/components/skill-hub";
 
-import { useSkills } from "@/hooks/explore/useSkills";
+import { useSkillsList } from "@/hooks/explore/useSkillsList";
+import { Spinner } from "@workspace/ui/components";
+import { useRouter } from "next/navigation";
 
 export default function ExplorePage() {
   const { t } = useTranslation();
-  const { pages, loading } = useSkills();
+  const { pages, loading } = useSkillsList();
+  const router = useRouter();
+
+  const handleDetailClick = (id: string) => {
+    router.push(`/skills/${id}`);
+  };
 
   return (
     <ViewContainer>
-      <div className="p-6 lg:p-12 lg:px-16 max-w-[1600px] mx-auto space-y-12 lg:space-y-16 pb-40 lg:pb-0">
-        <div className="flex flex-col gap-6 border-b border-border pb-10">
+      <div className="p-6 lg:p-12 lg:px-16 max-w-[1600px] mx-auto space-y-12 lg:space-y-6 pb-40 lg:pb-0">
+        <div className="flex flex-col gap-6 border-b border-border pb-8">
           <div className="flex items-center gap-3 text-[10px] lg:text-[12px] font-black text-muted-foreground uppercase tracking-[0.2em]">
             <Sparkles className="w-4 h-4 text-primary" />
-            {0} {t("categories.onlineSuffix")}
+            {pages.total} {t("categories.onlineSuffix")}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-10">
-          {pages.data.map((skill) => (
-            <SkillItem
-              key={skill.id}
-              skill={skill}
-              onSelect={() => {}}
-              onInstall={() => {}}
-              isInstalled={false}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <Spinner />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 ">
+            {pages.data.map((skill) => (
+              <SkillItem
+                key={skill.id}
+                skill={skill}
+                onSelect={() => handleDetailClick(skill.id)}
+                isInstalled={false}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </ViewContainer>
   );

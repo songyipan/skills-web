@@ -143,3 +143,15 @@ export async function getSkillByName({ name }: { name: string }) {
     },
   });
 }
+
+// 根据skill id查询技能
+export async function getSkillById({ id }: { id: string }) {
+  return prisma.skill.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      user: true,
+    },
+  });
+}

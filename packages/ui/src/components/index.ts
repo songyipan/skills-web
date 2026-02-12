@@ -10,3 +10,4 @@ export {
   CardTitle,
 } from "./Card";
 export { ViewContainer } from "./ViewContainer";
+export { Spinner } from "./spinner";

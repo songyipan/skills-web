@@ -1,41 +1,25 @@
-import { use, useState } from "react";
+import { useState, useCallback } from "react";
 
-import { PaginatedResult } from "@/modules/skills/types/skills.res";
-import { getAllSkillsService } from "@/modules/skills/skills.service";
-import { Skill } from "@repo/db";
-import { useCallback, useEffect } from "react";
+import { getSkillByIdService } from "@/modules/skills/skills.service";
+import { SkillDetailResponse } from "@/modules/skills/types/skills.dto";
 
-export const useSkills = () => {
+export const useSkillDetail = () => {
   const [loading, setLoading] = useState(false);
+  const [skill, setSkill] = useState<SkillDetailResponse | null>(null);
 
-  const [pages, setPages] = useState<PaginatedResult<Skill>>({
-    data: [],
-    total: 0,
-    page: 0,
-    pageSize: 0,
-    totalPages: 0,
-  });
-
-  const getSkillsAll = useCallback(async () => {
+  const getSkillById = useCallback(async ({ id }: { id: string }) => {
     setLoading(true);
-    const res = await getAllSkillsService({
-      page: pages.page,
-      pageSize: pages.pageSize,
-    });
-
-    console.log("=== 所有技能 ===", res);
-    setPages(res);
+    const res = await getSkillByIdService({ id });
+    console.log("=== 根据 skill id 查询技能 ===", res);
+    setSkill(res);
     setLoading(false);
-  }, [pages.page, pages.pageSize]);
-
-  useEffect(() => {
-    getSkillsAll();
-  }, [getSkillsAll]);
+    return res;
+  }, []);
 
   return {
     loading,
-    pages,
-    setPages,
-    getSkillsAll,
+    skill,
+    setSkill,
+    getSkillById,
   };
 };
