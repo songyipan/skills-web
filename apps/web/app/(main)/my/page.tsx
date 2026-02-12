@@ -21,10 +21,11 @@ import {
 import { toast, Toaster } from "sonner";
 import { genApiKey } from "@/lib/utils/genApiKey";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function MyPage() {
-  const [isUpload, setIsUpload] = useState(false);
   const [apiKey, setApiKey] = useState<UserApiKey>({} as UserApiKey);
+  const router = useRouter();
 
   const { data: session, status } = useSession();
 
@@ -80,6 +81,10 @@ export default function MyPage() {
     );
   }, [apiKey.apiKey]);
 
+  const handleGuideClick = () => {
+    router.push("/guide");
+  };
+
   useEffect(() => {
     getApiKey();
   }, [session, status]);
@@ -120,23 +125,26 @@ export default function MyPage() {
       </div>
 
       <div className=" l flex flex-col items-center justify-center border-2 border-dashed border-border rounded-[3rem] lg:rounded-[5rem] bg-card/10 p-12 text-center">
-        {!isUpload && (
-          <div className="  flex flex-col items-center ">
-            <div className="w-20 h-20 lg:w-32 lg:h-32 rounded-[2rem] lg:rounded-[3rem] bg-card border border-border flex items-center justify-center mb-8 lg:mb-12 text-muted-foreground shadow-inner">
-              <Layers className="w-10 h-10 lg:w-16 lg:h-16" />
-            </div>
-            <h3 className="text-2xl font-black text-muted-foreground mb-4 lg:mb-6">
-              {t("library.emptyTitle")}
-            </h3>
-            <p className="text-muted-foreground/60  mb-6  text-lg  max-w-xl font-medium leading-relaxed">
-              {t("library.emptyDesc")}
-            </p>
-
-            <Button onClick={() => setIsUpload(true)} className="rounded-xl ">
-              {t("library.emptyBtn")}
-            </Button>
+        <div className="  flex flex-col items-center ">
+          <div className="w-20 h-20 lg:w-32 lg:h-32 rounded-[2rem] lg:rounded-[3rem] bg-card border border-border flex items-center justify-center mb-8 lg:mb-12 text-muted-foreground shadow-inner">
+            <Layers className="w-10 h-10 lg:w-16 lg:h-16" />
           </div>
-        )}
+          <h3 className="text-2xl font-black text-muted-foreground mb-4 lg:mb-6">
+            {t("library.emptyTitle")}
+          </h3>
+          <p className="text-muted-foreground/60  mb-6  text-lg  max-w-xl font-medium leading-relaxed">
+            {t("library.emptyDesc")}
+          </p>
+
+          <Button
+            onClick={() => {
+              handleGuideClick();
+            }}
+            className="rounded-xl "
+          >
+            {t("library.emptyBtn")}
+          </Button>
+        </div>
       </div>
       <Toaster position="top-center" />
     </div>

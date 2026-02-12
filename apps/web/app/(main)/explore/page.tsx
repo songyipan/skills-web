@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 export default function ExplorePage() {
   const { t } = useTranslation();
-  const { pages, loading } = useSkillsList();
+  const { pages, loading, getSkillsAll } = useSkillsList();
   const router = useRouter();
 
   const handleDetailClick = (id: string) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from "next-auth/react";
 import { Badge, Button } from "@workspace/ui/components";
 import { useTranslation } from "@workspace/ui/hooks";
 import { useRouter, usePathname } from "next/navigation";
@@ -12,21 +12,19 @@ import {
   LayoutGrid,
   LogOut,
   User,
-
   Moon,
   Search,
   Sun,
   Zap,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-
   const { data: session } = useSession();
 
   const [isClient, setIsClient] = useState(false);
@@ -88,7 +86,7 @@ export default function MainLayout({
 
   return (
     <div
-      className={`min-h-screen bg-background text-foreground flex flex-col lg:flex-row font-sans selection:bg-primary/30 ${lang === "zh" ? "lang-zh" : "lang-en"}`}
+      className={`min-h-screen bg-background text-foreground lg:flex lg:flex-row font-sans selection:bg-primary/30 ${lang === "zh" ? "lang-zh" : "lang-en"}`}
     >
       <aside
         className={`border-r border-border hidden lg:flex flex-col h-screen sticky top-0 bg-card/40 backdrop-blur-2xl z-50 transition-all duration-300 ${lang === "zh" ? "w-72" : "w-64"}`}
@@ -142,63 +140,45 @@ export default function MainLayout({
         <div className="p-6 space-y-4">
           <div className="p-4 bg-muted/30 rounded-2xl border border-border flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-              {
-                session ? <Image src={session.user?.image || ""}  width={40} height={40} alt={session.user?.name || ""}  className="w-8 h-8 rounded-full" unoptimized /> : <User className="w-4 h-4" />
-              }
+              {session ? (
+                <Image
+                  src={session.user?.image || ""}
+                  width={40}
+                  height={40}
+                  alt={session.user?.name || ""}
+                  className="w-8 h-8 rounded-full"
+                  unoptimized
+                />
+              ) : (
+                <User className="w-4 h-4" />
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-black text-foreground truncate uppercase tracking-tight">
-             
                 {session?.user?.name || ""}
               </p>
-             {
-              session &&  <Badge variant="indigo" className="mt-1 h-4 px-2 text-[8px]">
-                {t("nav.linked")}
-              </Badge>
-             }
+              {session && (
+                <Badge variant="indigo" className="mt-1 h-4 px-2 text-[8px]">
+                  {t("nav.linked")}
+                </Badge>
+              )}
             </div>
           </div>
           <button
             onClick={handleLogout}
             className="w-full flex items-center justify-center gap-2 py-3 text-muted-foreground hover:text-destructive text-[10px] font-black uppercase tracking-widest transition-colors border border-transparent hover:border-destructive/20 rounded-xl"
           >
-            {session ? <LogOut className="w-3.5 h-3.5" /> : <User className="w-3.5 h-3.5" />}
-            { session ? t("nav.logout") : "To Login"}
+            {session ? (
+              <LogOut className="w-3.5 h-3.5" />
+            ) : (
+              <User className="w-3.5 h-3.5" />
+            )}
+            {session ? t("nav.logout") : "To Login"}
           </button>
         </div>
       </aside>
 
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-t border-border z-[100] flex items-center justify-around h-20 px-4">
-        <button
-          onClick={() => router.push("/explore")}
-          className={`flex flex-col items-center gap-1 ${activePath === "/explore" ? "text-primary" : "text-muted-foreground"}`}
-        >
-          <LayoutGrid className="w-5 h-5" />
-          <span className="text-[10px] font-bold uppercase tracking-widest">
-            {t("nav.marketplace")}
-          </span>
-        </button>
-        <button
-          onClick={() => router.push("/my")}
-          className={`flex flex-col items-center gap-1 ${activePath === "/my" ? "text-primary" : "text-muted-foreground"}`}
-        >
-          <Layers className="w-5 h-5" />
-          <span className="text-[10px] font-bold uppercase tracking-widest">
-            {t("nav.library")}
-          </span>
-        </button>
-        <button
-          onClick={() => router.push("/star")}
-          className={`flex flex-col items-center gap-1 ${activePath === "/star" ? "text-primary" : "text-muted-foreground"}`}
-        >
-          <Activity className="w-5 h-5" />
-          <span className="text-[10px] font-bold uppercase tracking-widest">
-            {t("nav.activity")}
-          </span>
-        </button>
-      </nav>
-
-      <main className="flex-1 bg-gradient-to-b from-background to-card overflow-hidden flex flex-col relative pb-20 lg:pb-0">
+      <main className="flex-1 flex flex-col min-h-screen lg:min-h-auto pb-16 lg:pb-0">
         <header className="sticky top-0 h-20 border-b border-border flex items-center justify-between px-6 lg:px-12 bg-background/60 backdrop-blur-2xl z-[60] shrink-0">
           <div className="relative flex-1 lg:max-w-xl text-foreground">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -243,8 +223,40 @@ export default function MainLayout({
           </div>
         </header>
 
-        <div key={lang} className="flex-1 overflow-y-auto">{children}</div>
+        <div key={lang} className="flex-1 overflow-y-auto bg-gradient-to-b from-background to-card">
+          {children}
+        </div>
       </main>
+
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 bg-background/80 backdrop-blur-xl border-t border-border z-[100] flex items-center justify-around h-16 px-4">
+        <button
+          onClick={() => router.push("/explore")}
+          className={`flex flex-col items-center gap-1 ${activePath === "/explore" ? "text-primary" : "text-muted-foreground"}`}
+        >
+          <LayoutGrid className="w-5 h-5" />
+          <span className="text-[10px] font-bold uppercase tracking-widest">
+            {t("nav.marketplace")}
+          </span>
+        </button>
+        <button
+          onClick={() => router.push("/my")}
+          className={`flex flex-col items-center gap-1 ${activePath === "/my" ? "text-primary" : "text-muted-foreground"}`}
+        >
+          <Layers className="w-5 h-5" />
+          <span className="text-[10px] font-bold uppercase tracking-widest">
+            {t("nav.library")}
+          </span>
+        </button>
+        <button
+          onClick={() => router.push("/star")}
+          className={`flex flex-col items-center gap-1 ${activePath === "/star" ? "text-primary" : "text-muted-foreground"}`}
+        >
+          <Activity className="w-5 h-5" />
+          <span className="text-[10px] font-bold uppercase tracking-widest">
+            {t("nav.activity")}
+          </span>
+        </button>
+      </nav>
     </div>
   );
 }

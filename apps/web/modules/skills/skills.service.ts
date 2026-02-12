@@ -141,3 +141,17 @@ export const getSkillByIdService = async ({ id }: { id: string }) => {
     return null;
   }
 };
+
+// 模糊搜索技能
+export const searchSkillsService = async ({ query }: { query: string }) => {
+  try {
+    if (!query) {
+      throw new Error("Search query is required");
+    }
+    const skills = await skillsRepository.searchSkills({ query });
+    return skills;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};

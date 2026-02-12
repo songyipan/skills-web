@@ -34,6 +34,7 @@
   },
   "library": {
     "title": "My Skills",
+    "uploadTitle": "Upload Steps",
     "desc": "Do not share your API key with others, or expose it in browser or other client-side code.",
     "synced": "Skills",
     "emptyTitle": "Empty Library",
@@ -108,6 +109,8 @@
   },
   "btn": {
     "submit": "Submit",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close"
   }
 }

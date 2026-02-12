@@ -58,3 +58,10 @@ model UserApiKey {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+// 网站信息
+model WebsiteInfo {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  mainContent String? @db.Text
+}
