@@ -165,7 +165,7 @@ export async function getSkillsByUserId({ userId }: { userId: string }) {
 
 // 根据skills 的name 查询技能
 export async function getSkillsByName({ name }: { name: string }) {
-  return prisma.skill.findMany({
+  return prisma.skill.findUnique({
     where: {
       name,
     },
