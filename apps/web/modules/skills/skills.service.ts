@@ -110,16 +110,19 @@ export const getAllSkillsService = async ({
   page,
   pageSize,
   search,
+  userId,
 }: {
   page?: number;
   pageSize?: number;
   search?: string;
+  userId?: string;
 }) => {
   try {
     const result = await skillsRepository.getAllSkills({
       page,
       pageSize,
       search,
+      userId,
     });
     return result;
   } catch (error) {

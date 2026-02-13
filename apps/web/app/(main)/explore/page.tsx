@@ -1,24 +1,32 @@
 "use client";
 
-import { ViewContainer } from "@workspace/ui/components";
+import {
+  ViewContainer,
+  Spinner,
+  PaginationNav,
+} from "@workspace/ui/components";
 import { useTranslation } from "@workspace/ui/hooks";
 
 import { Sparkles } from "lucide-react";
 import { SkillItem } from "@/components/skill-hub";
 
 import { useSkillsList } from "@/hooks/explore/useSkillsList";
-import { Spinner } from "@workspace/ui/components";
 import { useRouter } from "next/navigation";
 import { useSearchStore } from "@/lib/store/searchStore";
 import { Skill } from "@repo/db";
+import { useState } from "react";
+
+const PAGE_SIZE = 12;
 
 export default function ExplorePage() {
   const { t } = useTranslation();
-  const { data: pages, isLoading: loading } = useSkillsList({
-    variables: { page: 1, pageSize: 30 },
-  });
   const router = useRouter();
   const { search } = useSearchStore();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { data: pages, isLoading: loading } = useSkillsList({
+    variables: { page: currentPage, pageSize: PAGE_SIZE, search },
+  });
 
   const handleDetailClick = (id: string) => {
     router.push(`/skills/${id}`);
@@ -32,8 +40,8 @@ export default function ExplorePage() {
             <Sparkles className="w-4 h-4 text-primary" />
             {search ? (
               <>
-                {pages?.data.length || 0} {t("categories.onlineSuffix")} for "
-                {search}"
+                {pages?.total || 0} {t("categories.onlineSuffix")} for &ldquo;
+                {search}&rdquo;
               </>
             ) : (
               <>
@@ -44,24 +52,31 @@ export default function ExplorePage() {
         </div>
 
         {loading ? (
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center min-h-[400px]">
             <Spinner />
           </div>
         ) : pages?.data.length === 0 ? (
-          <div className="flex justify-center items-center text-muted-foreground">
+          <div className="flex justify-center items-center min-h-[400px] text-muted-foreground">
             {search ? `No skills found for "${search}"` : "No skills available"}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 ">
-            {pages?.data.map((skill: Skill) => (
-              <SkillItem
-                key={skill.id}
-                skill={skill}
-                onSelect={() => handleDetailClick(skill.id)}
-                isInstalled={false}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+              {pages?.data.map((skill: Skill) => (
+                <SkillItem
+                  key={skill.id}
+                  skill={skill}
+                  onSelect={() => handleDetailClick(skill.id)}
+                />
+              ))}
+            </div>
+
+            <PaginationNav
+              currentPage={currentPage}
+              totalPages={pages?.totalPages || 1}
+              onPageChange={setCurrentPage}
+            />
+          </>
         )}
       </div>
     </ViewContainer>

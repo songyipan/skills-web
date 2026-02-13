@@ -5,9 +5,9 @@ import { Skill } from "@repo/db";
 
 export const useSkillsList = createQuery<
   PaginatedResult<Skill>,
-  { page?: number; pageSize?: number; search?: string }
+  { page?: number; pageSize?: number; search?: string; userId?: string }
 >({
   queryKey: ["skillsList"],
-  fetcher: ({ page = 1, pageSize = 30, search }) =>
-    getAllSkillsService({ page, pageSize, search }),
+  fetcher: ({ page = 1, pageSize = 30, search, userId }) =>
+    getAllSkillsService({ page, pageSize, search, userId }),
 });

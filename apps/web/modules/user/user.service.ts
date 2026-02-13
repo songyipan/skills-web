@@ -1,3 +1,4 @@
+"use server";
 import { createUser, getUserByGithubId } from "./user.repository";
 import { CreateUserDto } from "./types/user.dto";
 import { createUserSchema } from "./user.scheme";

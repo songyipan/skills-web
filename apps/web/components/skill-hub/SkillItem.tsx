@@ -17,14 +17,16 @@ import { Skill } from "@repo/db";
 interface SkillItemProps {
   skill: Skill;
   onSelect: (s: Skill) => void;
-  isInstalled: boolean;
+  isInstalled?: boolean;
+  showBadge?: boolean;
 }
 
 export function SkillItem({
   skill,
   onSelect,
 
-  isInstalled,
+  isInstalled = false,
+  showBadge = true,
 }: SkillItemProps) {
   const { t } = useTranslation();
   return (
@@ -35,16 +37,18 @@ export function SkillItem({
             <span className="w-5 h-5 lg:w-6 lg:h-6 block">{skill.icon}</span>
           </div> */}
           {/* {skill.isNew && ( */}
-          <Badge
-            variant="indigo"
-            className="animate-pulse px-2 lg:px-3 py-0.5 lg:py-1 font-black text-[8px] lg:text-[10px]"
-          >
-            NEW
-          </Badge>
+          {showBadge && (
+            <Badge
+              variant="indigo"
+              className="animate-pulse px-2 lg:px-3 py-0.5 lg:py-1 font-black text-[8px] lg:text-[10px]"
+            >
+              NEW
+            </Badge>
+          )}
           {/* )} */}
         </div>
         <CardTitle
-          className={`mt-4 transition-colors tracking-tight text-xl lg:text-2xl group-hover:text-indigo-400`}
+          className={` ${showBadge ? "mt-4" : "mt-0"}  transition-colors tracking-tight text-xl lg:text-2xl group-hover:text-indigo-400`}
         >
           {skill.name}
         </CardTitle>

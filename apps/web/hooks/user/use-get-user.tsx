@@ -1,26 +1,15 @@
-import { useState } from "react";
-
 import { UserInfo } from "@/modules/user/types/user.dto";
 
 import { getUserByGithubIdService } from "@/modules/user/user.service";
+import { createQuery } from "react-query-kit";
 
-export const useGetUser = () => {
-  const [userInfo, setUserInfo] = useState<UserInfo>();
-
-  const getUserInfo = async (githubId: string) => {
-    try {
-      const res = await getUserByGithubIdService(githubId);
-      if (!res) {
-        return;
-      }
-      setUserInfo(res);
-    } catch (error) {
-      console.log(error);
+export const useGetUser = createQuery<UserInfo, { githubId: string }, Error>({
+  queryKey: ["user"],
+  fetcher: async ({ githubId }) => {
+    const res = await getUserByGithubIdService(githubId);
+    if (!res) {
+      throw new Error("User not found");
     }
-  };
-
-  return {
-    userInfo,
-    getUserInfo,
-  };
-};
+    return res;
+  },
+});

@@ -1,18 +1,20 @@
 "use client";
 import {
-  Button,
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
+  PaginationNav,
+  Spinner,
 } from "@workspace/ui/components";
 import { useTranslation } from "@workspace/ui/hooks";
-import { Layers } from "lucide-react";
+import { SkillItem } from "@/components/skill-hub";
+
 import { useEffect, useMemo, useState } from "react";
 
 import { RefreshCcw } from "lucide-react";
-import { UserApiKey } from "@repo/db";
+import { Skill, UserApiKey } from "@repo/db";
 import { copyText } from "@workspace/utils";
 import {
   getApiKeyService,
@@ -22,9 +24,33 @@ import { toast, Toaster } from "sonner";
 import { genApiKey } from "@/lib/utils/genApiKey";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useGetUser } from "@/hooks/user";
+import { useSkillsList } from "@/hooks/explore";
+import { SkillsEmpty } from "./components/skills-empty";
+
+const PAGE_SIZE = 12;
 
 export default function MyPage() {
   const [apiKey, setApiKey] = useState<UserApiKey>({} as UserApiKey);
+  const [githubId, setGithubId] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { data: userInfo, isPending: userInfoPending } = useGetUser({
+    enabled: !!githubId,
+    variables: {
+      githubId,
+    },
+  });
+
+  const { data: skillsData, isPending: skillsListPending } = useSkillsList({
+    enabled: !!userInfo?.id,
+    variables: {
+      userId: userInfo?.id,
+      page: currentPage,
+      pageSize: PAGE_SIZE,
+    },
+  });
+
   const router = useRouter();
 
   const { data: session, status } = useSession();
@@ -35,6 +61,7 @@ export default function MyPage() {
     try {
       if (session?.user) {
         const githubId = String((session.user as any).id);
+        setGithubId(githubId);
         console.log(githubId, "githubId");
         const res = await getApiKeyService({
           githubId,
@@ -80,6 +107,10 @@ export default function MyPage() {
     router.push("/guide");
   };
 
+  const handleDetailClick = (id: string) => {
+    router.push(`/skills/${id}`);
+  };
+
   useEffect(() => {
     getApiKey();
   }, [session?.user]);
@@ -93,7 +124,7 @@ export default function MyPage() {
   }
 
   return (
-    <div className="p-6 lg:p-12 lg:px-16 max-w-[1600px] mx-auto space-y-12 lg:space-y-16 pb-40 lg:pb-0">
+    <div className="p-6 lg:p-12 lg:px-16 max-w-[1600px] mx-auto space-y-12 lg:space-y-10 pb-40 lg:pb-0">
       <div className="flex flex-row">
         <Card className=" w-full flex-row ">
           <CardHeader>
@@ -119,27 +150,33 @@ export default function MyPage() {
         </Card>
       </div>
 
-      <div className=" l flex flex-col items-center justify-center border-2 border-dashed border-border rounded-[3rem] lg:rounded-[5rem] bg-card/10 p-12 text-center">
-        <div className="  flex flex-col items-center ">
-          <div className="w-20 h-20 lg:w-32 lg:h-32 rounded-[2rem] lg:rounded-[3rem] bg-card border border-border flex items-center justify-center mb-8 lg:mb-12 text-muted-foreground shadow-inner">
-            <Layers className="w-10 h-10 lg:w-16 lg:h-16" />
+      <div className="l flex flex-col items-center justify-center border-2 border-dashed border-border rounded-[2rem] bg-card/10 p-6 text-center">
+        {skillsListPending ? (
+          <div className="flex justify-center items-center min-h-[300px]">
+            <Spinner />
           </div>
-          <h3 className="text-2xl font-black text-muted-foreground mb-4 lg:mb-6">
-            {t("library.emptyTitle")}
-          </h3>
-          <p className="text-muted-foreground/60  mb-6  text-lg  max-w-xl font-medium leading-relaxed">
-            {t("library.emptyDesc")}
-          </p>
+        ) : skillsData?.data.length === 0 ? (
+          <SkillsEmpty handleGuideClick={handleGuideClick} />
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+              {skillsData?.data.map((skill: Skill) => (
+                <SkillItem
+                  key={skill.id}
+                  showBadge={false}
+                  skill={skill}
+                  onSelect={() => handleDetailClick(skill.id)}
+                />
+              ))}
+            </div>
 
-          <Button
-            onClick={() => {
-              handleGuideClick();
-            }}
-            className="rounded-xl "
-          >
-            {t("library.emptyBtn")}
-          </Button>
-        </div>
+            <PaginationNav
+              currentPage={currentPage}
+              totalPages={skillsData?.totalPages || 1}
+              onPageChange={setCurrentPage}
+            />
+          </>
+        )}
       </div>
       <Toaster position="top-center" />
     </div>

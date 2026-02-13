@@ -12,3 +12,5 @@ export {
 export { ViewContainer } from "./ViewContainer";
 export { Spinner } from "./spinner";
 export * from "./drawer";
+export * from "./pagination";
+export { PaginationNav } from "./pagination-nav";

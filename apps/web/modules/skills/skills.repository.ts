@@ -75,23 +75,26 @@ export async function updateSkillByName({
   });
 }
 
-// 获取所有技能（分页 + 模糊搜索）
+// 获取所有技能（分页 + 模糊搜索 + 用户过滤）
 export async function getAllSkills({
   page = 1,
   pageSize = 30,
   search,
+  userId,
 }: {
   page?: number;
   pageSize?: number;
   search?: string;
+  userId?: string;
 } = {}) {
   const skip = (page - 1) * pageSize;
 
-  const where = search
-    ? {
-        OR: [{ name: { contains: search } }, { desc: { contains: search } }],
-      }
-    : {};
+  const where = {
+    ...(userId && { userId }),
+    ...(search && {
+      OR: [{ name: { contains: search } }, { desc: { contains: search } }],
+    }),
+  };
 
   const [data, total] = await Promise.all([
     prisma.skill.findMany({
