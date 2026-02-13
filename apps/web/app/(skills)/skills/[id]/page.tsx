@@ -37,17 +37,10 @@ export default function SkillDetailPage({
               <article className="prose prose-xs sm:prose-sm dark:prose-invert max-w-none prose-table:border-collapse prose-table:w-full prose-th:bg-muted prose-th:p-2 prose-td:p-2 prose-tr:border-b prose-tr:border-border prose-thead:bg-muted prose-th:font-semibold">
                 <Markdown remarkPlugins={[remarkGfm]}>
                   {`# ${data?.name || ""}
-
-Please install the skills-cli package to use the skill.
-
-\`\`\`bash
-npm i skills-cli
-\`\`\`
-
 Execute this command in the project root directory:
 
 \`\`\`bash
-npx skills-cli ${data?.name || ""}
+npx skills-cli --add ${data?.name || ""}
 \`\`\`
               `}
                 </Markdown>
