@@ -18,18 +18,27 @@ export default function Login() {
   const onLoginSuccess = useCallback(async () => {
     try {
       if (session) {
+        const githubId = (session.user as any).id;
+        console.log("=== 登录成功 ===", githubId);
         setIsAuthorized(true);
         const res = await createUserAction({
           username: session.user?.name || "",
           image: session.user?.image || "",
           email: session.user?.email || undefined,
+          githubId: String(githubId),
         });
         console.log("=== 登录结果 ===", res);
+
+        if (!res.id) {
+          toast.error("Please try again later.");
+          return;
+        }
         // 2. 创建 apiKey
         await createApiKeyService({
           userId: res.id,
           expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
           apiKey: genApiKey(),
+          githubId: String(githubId),
         });
 
         toast.success("登录成功");

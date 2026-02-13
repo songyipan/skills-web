@@ -75,25 +75,34 @@ export async function updateSkillByName({
   });
 }
 
-// 获取所有技能（分页）
+// 获取所有技能（分页 + 模糊搜索）
 export async function getAllSkills({
   page = 1,
-  pageSize = 10,
+  pageSize = 30,
+  search,
 }: {
   page?: number;
   pageSize?: number;
-}) {
+  search?: string;
+} = {}) {
   const skip = (page - 1) * pageSize;
+
+  const where = search
+    ? {
+        OR: [{ name: { contains: search } }, { desc: { contains: search } }],
+      }
+    : {};
 
   const [data, total] = await Promise.all([
     prisma.skill.findMany({
+      where,
       skip,
       take: pageSize,
       orderBy: {
         createdAt: "desc",
       },
     }),
-    prisma.skill.count(),
+    prisma.skill.count({ where }),
   ]);
 
   return {
@@ -103,20 +112,6 @@ export async function getAllSkills({
     pageSize,
     totalPages: Math.ceil(total / pageSize),
   };
-}
-
-// 模糊查询技能
-export async function searchSkills({ query }: { query: string }) {
-  return prisma.skill.findMany({
-    where: {
-      name: {
-        contains: query,
-      },
-      desc: {
-        contains: query,
-      },
-    },
-  });
 }
 
 // 根据skill name和userId查询技能

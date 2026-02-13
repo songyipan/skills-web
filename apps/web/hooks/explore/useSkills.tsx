@@ -1,9 +1,6 @@
 import { useState, useCallback } from "react";
 
-import {
-  getSkillByIdService,
-  searchSkillsService,
-} from "@/modules/skills/skills.service";
+import { getSkillByIdService } from "@/modules/skills/skills.service";
 import { SkillDetailResponse } from "@/modules/skills/types/skills.dto";
 
 export const useSkillDetail = () => {
@@ -19,21 +16,10 @@ export const useSkillDetail = () => {
     return res;
   }, []);
 
-  // 模糊搜索技能
-  const searchSkills = useCallback(async ({ query }: { query: string }) => {
-    setLoading(true);
-    const res = await searchSkillsService({ query });
-    console.log("=== 模糊搜索技能 ===", res);
-
-    setLoading(false);
-    return res;
-  }, []);
-
   return {
     loading,
     skill,
     setSkill,
     getSkillById,
-    searchSkills,
   };
 };

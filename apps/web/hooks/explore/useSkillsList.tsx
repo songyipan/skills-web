@@ -10,6 +10,7 @@ export const useSkillsList = () => {
     data: [],
     total: 0,
     page: 1,
+    search: undefined,
     pageSize: 30,
     totalPages: 0,
   });
@@ -19,11 +20,12 @@ export const useSkillsList = () => {
     const res = await getAllSkillsService({
       page: pages.page,
       pageSize: pages.pageSize,
+      search: pages.search,
     });
-    console.log("=== 所有技能 ===", res);
+
     setPages(res);
     setLoading(false);
-  }, [pages.page, pages.pageSize]);
+  }, [pages.page, pages.pageSize, pages.search]);
 
   useEffect(() => {
     getSkillsAll();

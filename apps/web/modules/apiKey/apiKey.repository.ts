@@ -6,11 +6,13 @@ export const createApiKey = async ({
   userId,
   expiresAt,
   apiKey,
+  githubId,
 }: CreateApiKeyDto) => {
   return prisma.userApiKey.create({
     data: {
       userId,
       apiKey: apiKey,
+      githubId,
       expiresAt,
     },
   });
@@ -49,6 +51,15 @@ export const findUserByApiKey = async (apiKey: string) => {
     },
     include: {
       user: true,
+    },
+  });
+};
+
+// 根据githubId查询用户ApiKey
+export const findUserApiKeyByGithubId = async (githubId: string) => {
+  return prisma.userApiKey.findFirst({
+    where: {
+      githubId,
     },
   });
 };

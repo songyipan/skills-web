@@ -109,12 +109,18 @@ export const getSkillsCategoriesService = async () => {
 export const getAllSkillsService = async ({
   page,
   pageSize,
+  search,
 }: {
   page?: number;
   pageSize?: number;
+  search?: string;
 }) => {
   try {
-    const result = await skillsRepository.getAllSkills({ page, pageSize });
+    const result = await skillsRepository.getAllSkills({
+      page,
+      pageSize,
+      search,
+    });
     return result;
   } catch (error) {
     console.log(error);
@@ -139,19 +145,5 @@ export const getSkillByIdService = async ({ id }: { id: string }) => {
   } catch (error) {
     console.log(error);
     return null;
-  }
-};
-
-// 模糊搜索技能
-export const searchSkillsService = async ({ query }: { query: string }) => {
-  try {
-    if (!query) {
-      throw new Error("Search query is required");
-    }
-    const skills = await skillsRepository.searchSkills({ query });
-    return skills;
-  } catch (error) {
-    console.log(error);
-    return [];
   }
 };

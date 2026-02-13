@@ -22,8 +22,8 @@ export const getUserById = async (id: string) => {
   });
 };
 
-export const getUserByUsername = async (username: string) => {
+export const getUserByGithubId = async (githubId: string) => {
   return prisma.user.findUnique({
-    where: { username },
+    where: { githubId },
   });
 };

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useSearchStore } from "@/lib/store/searchStore";
 
 export default function MainLayout({
   children,
@@ -34,6 +35,7 @@ export default function MainLayout({
   const [activePath, setActivePath] = useState("/explore");
 
   const { t, lang, toggleLang } = useTranslation();
+  const { setSearch } = useSearchStore();
 
   useEffect(() => {
     setIsClient(true);
@@ -74,6 +76,10 @@ export default function MainLayout({
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.currentTarget.value);
   };
 
   if (!isClient) {
@@ -185,6 +191,7 @@ export default function MainLayout({
             <input
               type="text"
               placeholder={t("header.searchPlaceholder")}
+              onChange={handleSearch}
               className="w-full bg-muted/20 border border-border rounded-2xl text-sm pl-12 pr-4 h-11 focus:border-primary/50 focus:outline-none transition-all placeholder:text-muted-foreground font-medium"
             />
           </div>
@@ -223,7 +230,10 @@ export default function MainLayout({
           </div>
         </header>
 
-        <div key={lang} className="flex-1 overflow-y-auto bg-gradient-to-b from-background to-card">
+        <div
+          key={lang}
+          className="flex-1 overflow-y-auto bg-gradient-to-b from-background to-card"
+        >
           {children}
         </div>
       </main>

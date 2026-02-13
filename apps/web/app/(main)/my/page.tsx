@@ -32,20 +32,15 @@ export default function MyPage() {
   const { t } = useTranslation();
 
   const getApiKey = async () => {
-    if (status === "loading") {
-      return;
-    }
-
-    if (status === "unauthenticated") {
-      return;
-    }
-
     try {
-      console.log(session, "session");
-      const res = await getApiKeyService({
-        username: session?.user?.name || "",
-      });
-      setApiKey(res || ({} as UserApiKey));
+      if (session?.user) {
+        const githubId = (session.user as any).id;
+        console.log(githubId, "githubId");
+        const res = await getApiKeyService({
+          githubId,
+        });
+        setApiKey(res || ({} as UserApiKey));
+      }
     } catch (error) {
       toast.error("Get apiKey failed");
     }
@@ -87,7 +82,7 @@ export default function MyPage() {
 
   useEffect(() => {
     getApiKey();
-  }, [session, status]);
+  }, [session?.user]);
 
   if (status === "loading") {
     return (

@@ -51,8 +51,7 @@ export function SkillItem({
         <CardDescription
           className={`line-clamp-2 mt-2 font-medium transition-colors group-hover:text-zinc-400 ${"text-xs h-8"}`}
         >
-          {/* {t_raw(`skills.${skill.id}.desc`)} */}
-          {skill.desc}
+          {skill.desc || skill.mainContent?.substring(3, 400)}
         </CardDescription>
       </CardHeader>
       <CardFooter className="mt-auto justify-between ">
