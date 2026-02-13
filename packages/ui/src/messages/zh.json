@@ -5,7 +5,7 @@
     "activity": "同步记录",
     "discovery": "主商店",
     "recentSignals": "最近下载",
-    "nexusCore": "SkillHub 商店",
+    "nexusCore": "Skills Hub 商店",
     "linked": "在线",
     "logout": "退出登录",
     "silence": "暂无记录"
@@ -38,7 +38,7 @@
     "desc": "请勿与他人分享您的 API key，或在浏览器或其他客户端代码中暴露它",
     "synced": "SKILL",
     "emptyTitle": "仓库空空如也",
-    "emptyDesc": "上传您的SKILL 到 SkillHub，使更多人发现。",
+    "emptyDesc": "上传您的 SKILL 到 Skills Hub，使更多人发现。",
     "emptyBtn": "上传SKILL",
     "refresh": "重置并复制",
     "addSkills": {
@@ -94,7 +94,7 @@
     "failed": "失败"
   },
   "auth": {
-    "title": "登录 SkillHub",
+    "title": "登录 Skills Hub",
     "subtitle": "连接您的账户以跨设备同步技能",
     "connecting": "正在连接 GitHub...",
     "authorized": "授权成功",

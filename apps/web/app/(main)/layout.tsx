@@ -66,7 +66,7 @@ export default function MainLayout({
             />
           </div>
           <span className="font-black tracking-tighter text-2xl bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
-            SkillHub
+            Skills Hub
           </span>
         </div>
 

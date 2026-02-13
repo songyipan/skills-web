@@ -5,7 +5,7 @@
     "activity": "Sync History",
     "discovery": "Marketplace",
     "recentSignals": "Recent Downloads",
-    "nexusCore": "SkillHub Store",
+    "nexusCore": "Skills Hub Store",
     "linked": "Online",
     "logout": "Sign Out",
     "silence": "No Activity"
@@ -95,7 +95,7 @@
     "failed": "Failed"
   },
   "auth": {
-    "title": "Sign in to SkillHub",
+    "title": "Sign in to Skills Hub",
     "subtitle": "Connect your account to sync skills across devices",
     "connecting": "Connecting to GitHub...",
     "authorized": "Authorization successful",
