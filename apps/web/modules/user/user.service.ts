@@ -24,3 +24,19 @@ export const createUserService = async (data: CreateUserDto) => {
     throw error;
   }
 };
+
+// 根据githubId查询用户
+export const getUserByGithubIdService = async (githubId: string) => {
+  try {
+    if (!githubId) {
+      throw new Error("Github id is required");
+    }
+    const res = await getUserByGithubId(githubId);
+    return res;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw error;
+  }
+};

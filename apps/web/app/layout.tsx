@@ -1,7 +1,7 @@
 import "@workspace/ui/globals.css";
 
 import type { ReactNode } from "react";
-import { Providers } from "./providers/SessionProvider";
+import { Providers } from "@/components/providers";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

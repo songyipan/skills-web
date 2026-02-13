@@ -5,3 +5,13 @@ export type CreateUserDto = {
   image?: string;
   githubId: string;
 };
+
+export type UserInfo = {
+  id: string;
+  email: string | null;
+  username: string;
+  githubId: string | null;
+  image: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+};

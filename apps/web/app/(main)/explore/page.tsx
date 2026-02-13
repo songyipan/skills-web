@@ -10,10 +10,13 @@ import { useSkillsList } from "@/hooks/explore/useSkillsList";
 import { Spinner } from "@workspace/ui/components";
 import { useRouter } from "next/navigation";
 import { useSearchStore } from "@/lib/store/searchStore";
+import { Skill } from "@repo/db";
 
 export default function ExplorePage() {
   const { t } = useTranslation();
-  const { pages, loading } = useSkillsList();
+  const { data: pages, isLoading: loading } = useSkillsList({
+    variables: { page: 1, pageSize: 30 },
+  });
   const router = useRouter();
   const { search } = useSearchStore();
 
@@ -29,12 +32,12 @@ export default function ExplorePage() {
             <Sparkles className="w-4 h-4 text-primary" />
             {search ? (
               <>
-                {pages.data.length} {t("categories.onlineSuffix")} for "{search}
-                "
+                {pages?.data.length || 0} {t("categories.onlineSuffix")} for "
+                {search}"
               </>
             ) : (
               <>
-                {pages.total} {t("categories.onlineSuffix")}
+                {pages?.total || 0} {t("categories.onlineSuffix")}
               </>
             )}
           </div>
@@ -44,13 +47,13 @@ export default function ExplorePage() {
           <div className="flex justify-center items-center">
             <Spinner />
           </div>
-        ) : pages.data.length === 0 ? (
+        ) : pages?.data.length === 0 ? (
           <div className="flex justify-center items-center text-muted-foreground">
             {search ? `No skills found for "${search}"` : "No skills available"}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 ">
-            {pages.data.map((skill) => (
+            {pages?.data.map((skill: Skill) => (
               <SkillItem
                 key={skill.id}
                 skill={skill}

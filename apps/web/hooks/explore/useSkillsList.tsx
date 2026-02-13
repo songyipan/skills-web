@@ -1,40 +1,13 @@
-import { useState, useCallback, useEffect } from "react";
-
+import { createQuery } from "react-query-kit";
 import { PaginatedResult } from "@/modules/skills/types/skills.res";
 import { getAllSkillsService } from "@/modules/skills/skills.service";
 import { Skill } from "@repo/db";
 
-export const useSkillsList = () => {
-  const [loading, setLoading] = useState(false);
-  const [pages, setPages] = useState<PaginatedResult<Skill>>({
-    data: [],
-    total: 0,
-    page: 1,
-    search: undefined,
-    pageSize: 30,
-    totalPages: 0,
-  });
-
-  const getSkillsAll = useCallback(async () => {
-    setLoading(true);
-    const res = await getAllSkillsService({
-      page: pages.page,
-      pageSize: pages.pageSize,
-      search: pages.search,
-    });
-
-    setPages(res);
-    setLoading(false);
-  }, [pages.page, pages.pageSize, pages.search]);
-
-  useEffect(() => {
-    getSkillsAll();
-  }, [getSkillsAll]);
-
-  return {
-    loading,
-    pages,
-    setPages,
-    getSkillsAll,
-  };
-};
+export const useSkillsList = createQuery<
+  PaginatedResult<Skill>,
+  { page?: number; pageSize?: number; search?: string }
+>({
+  queryKey: ["skillsList"],
+  fetcher: ({ page = 1, pageSize = 30, search }) =>
+    getAllSkillsService({ page, pageSize, search }),
+});

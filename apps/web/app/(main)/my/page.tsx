@@ -34,7 +34,7 @@ export default function MyPage() {
   const getApiKey = async () => {
     try {
       if (session?.user) {
-        const githubId = (session.user as any).id;
+        const githubId = String((session.user as any).id);
         console.log(githubId, "githubId");
         const res = await getApiKeyService({
           githubId,

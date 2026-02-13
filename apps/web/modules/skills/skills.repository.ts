@@ -150,3 +150,12 @@ export async function getSkillById({ id }: { id: string }) {
     },
   });
 }
+
+// 根据userId查询技能
+export async function getSkillsByUserId({ userId }: { userId: string }) {
+  return prisma.skill.findMany({
+    where: {
+      userId,
+    },
+  });
+}

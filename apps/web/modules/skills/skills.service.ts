@@ -147,3 +147,21 @@ export const getSkillByIdService = async ({ id }: { id: string }) => {
     return null;
   }
 };
+
+// 根据userId查询技能
+export const getSkillsByUserIdService = async ({
+  userId,
+}: {
+  userId: string;
+}) => {
+  try {
+    if (!userId) {
+      throw new Error("User id is required");
+    }
+    const skills = await skillsRepository.getSkillsByUserId({ userId });
+    return skills;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
