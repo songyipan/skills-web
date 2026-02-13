@@ -162,3 +162,26 @@ export async function getSkillsByUserId({ userId }: { userId: string }) {
     },
   });
 }
+
+// 根据skills 的name 查询技能
+export async function getSkillsByName({ name }: { name: string }) {
+  return prisma.skill.findMany({
+    where: {
+      name,
+    },
+  });
+}
+
+// 根据skills的id将下载量增加1
+export async function incrementSkillDownloadCount({ id }: { id: string }) {
+  return prisma.skill.update({
+    where: {
+      id,
+    },
+    data: {
+      downloads: {
+        increment: 1,
+      },
+    },
+  });
+}

@@ -168,3 +168,35 @@ export const getSkillsByUserIdService = async ({
     return [];
   }
 };
+
+// 根据技能名称查询技能
+export const getSkillsByNameService = async ({ name }: { name: string }) => {
+  try {
+    if (!name) {
+      throw new Error("Skill name is required");
+    }
+    const skills = await skillsRepository.getSkillsByName({ name });
+    return skills;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+// 根据技能id增加下载量
+export const incrementSkillDownloadCountService = async ({
+  id,
+}: {
+  id: string;
+}) => {
+  try {
+    if (!id) {
+      throw new Error("Skill id is required");
+    }
+    const skill = await skillsRepository.incrementSkillDownloadCount({ id });
+    return skill;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

@@ -12,14 +12,13 @@ import {
   LayoutGrid,
   LogOut,
   User,
-  Moon,
   Search,
-  Sun,
   Zap,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchStore } from "@/lib/store/searchStore";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function MainLayout({
   children,
@@ -27,9 +26,6 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   const { data: session } = useSession();
-
-  const [isClient, setIsClient] = useState(false);
-  const [isDark, setIsDark] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
   const [activePath, setActivePath] = useState("/explore");
@@ -38,37 +34,10 @@ export default function MainLayout({
   const { setSearch } = useSearchStore();
 
   useEffect(() => {
-    setIsClient(true);
     if (pathname) {
       setActivePath(pathname);
     }
   }, [pathname]);
-
-  useEffect(() => {
-    setIsClient(true);
-    const savedTheme = localStorage.getItem("skillhub-theme");
-    if (savedTheme === "light") {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    } else {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  const toggleDark = () => {
-    setIsDark((prev) => {
-      const next = !prev;
-      if (next) {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("skillhub-theme", "dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("skillhub-theme", "light");
-      }
-      return next;
-    });
-  };
 
   const handleLogout = async () => {
     try {
@@ -81,14 +50,6 @@ export default function MainLayout({
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.currentTarget.value);
   };
-
-  if (!isClient) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
 
   return (
     <div
@@ -196,18 +157,7 @@ export default function MainLayout({
             />
           </div>
           <div className="flex items-center gap-3 lg:gap-5 ml-6">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggleDark}
-              className="rounded-xl border-border bg-muted/20"
-            >
-              {isDark ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </Button>
+            <ThemeToggle />
             <Button
               variant="outline"
               size="sm"
