@@ -2,7 +2,7 @@
   "nav": {
     "marketplace": "Explore",
     "library": "My Skills",
-    "activity": "Sync History",
+    "activity": "Favorites",
     "discovery": "Marketplace",
     "recentSignals": "Recent Downloads",
     "nexusCore": "Skills Hub Store",
@@ -69,13 +69,25 @@
     }
   },
   "activity": {
-    "title": "Sync History",
-    "desc": "Timeline of skill deployments and updates.",
+    "title": "Favorites",
+    "desc": "A saved list of skills you want to revisit, compare, or install later.",
     "colStatus": "Status",
     "colName": "Skill",
     "colTime": "Time",
     "colNode": "Node",
-    "empty": "No sync activity recorded."
+    "empty": "No favorite skills yet."
+  },
+  "favorite": {
+    "panelLabel": "Save",
+    "panelDescription": "Add this skill to your favorites so it appears in your saved list.",
+    "add": "Add to Favorites",
+    "added": "Saved to Favorites",
+    "loading": "Loading Favorites",
+    "login": "Sign in to Save",
+    "savedCount": "saved skills",
+    "emptyTitle": "Your favorites list is still empty",
+    "emptyDescription": "Save the skills you like from the detail page and they will appear here.",
+    "explore": "Explore Skills"
   },
   "skills": {
     "creative-writer": {

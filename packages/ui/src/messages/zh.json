@@ -2,7 +2,7 @@
   "nav": {
     "marketplace": "探索",
     "library": "我的",
-    "activity": "同步记录",
+    "activity": "收藏",
     "discovery": "主商店",
     "recentSignals": "最近下载",
     "nexusCore": "Skills Hub 商店",
@@ -68,13 +68,25 @@
     }
   },
   "activity": {
-    "title": "同步日志",
-    "desc": "技能部署和更新的时间轴。",
+    "title": "我的收藏",
+    "desc": "集中查看你想稍后回看、对比或再次安装的技能。",
     "colStatus": "状态",
     "colName": "技能名称",
     "colTime": "时间",
     "colNode": "节点",
-    "empty": "暂无同步记录。"
+    "empty": "还没有收藏任何技能。"
+  },
+  "favorite": {
+    "panelLabel": "收藏",
+    "panelDescription": "把这个技能加入收藏，之后会出现在你的收藏列表里。",
+    "add": "加入收藏",
+    "added": "已加入收藏",
+    "loading": "正在加载收藏状态",
+    "login": "登录后收藏",
+    "savedCount": "个收藏技能",
+    "emptyTitle": "你的收藏列表还是空的",
+    "emptyDescription": "在技能详情页点击收藏，喜欢的技能就会出现在这里。",
+    "explore": "去逛逛技能"
   },
   "skills": {
     "creative-writer": {

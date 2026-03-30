@@ -1,8 +1,7 @@
 "use server";
 
-// import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/db";
 import { createSkill as createSkillService } from "@/modules/skills/skills.service";
-import { CreateSkillDto } from "@/modules/skills/types/skills.dto";
 import { getSkillsCategoriesService } from "@/modules/skills/skills.service";
 
 export async function createSkill({
@@ -37,30 +36,52 @@ export async function getUserSkills(userId: string) {
 }
 
 export async function favoriteSkill(userId: string, skillId: string) {
-  // return prisma.favoriteSkill.create({
-  //   data: { userId, skillId },
-  // });
+  if (!userId || !skillId) {
+    throw new Error("User id and skill id are required");
+  }
+
+  return prisma.favoriteSkill.upsert({
+    where: {
+      userId_skillId: { userId, skillId },
+    },
+    update: {},
+    create: { userId, skillId },
+  });
 }
 
 export async function unfavoriteSkill(userId: string, skillId: string) {
-  // return prisma.favoriteSkill.delete({
-  //   where: {
-  //     userId_skillId: { userId, skillId },
-  //   },
-  // });
+  if (!userId || !skillId) {
+    throw new Error("User id and skill id are required");
+  }
+
+  return prisma.favoriteSkill.deleteMany({
+    where: {
+      userId,
+      skillId,
+    },
+  });
 }
 
 export async function getFavoriteSkills(userId: string) {
-  // return prisma.favoriteSkill.findMany({
-  //   where: { userId },
-  //   include: { skill: true },
-  //   orderBy: { createdAt: "desc" },
-  // });
+  if (!userId) {
+    return [];
+  }
+
+  return prisma.favoriteSkill.findMany({
+    where: { userId },
+    include: { skill: true },
+    orderBy: { createdAt: "desc" },
+  });
 }
 
 export async function isFavorited(userId: string, skillId: string) {
-  // const fav = await prisma.favoriteSkill.findUnique({
-  //   where: { userId_skillId: { userId, skillId } },
-  // });
-  // return !!fav;
+  if (!userId || !skillId) {
+    return false;
+  }
+
+  const fav = await prisma.favoriteSkill.findUnique({
+    where: { userId_skillId: { userId, skillId } },
+  });
+
+  return !!fav;
 }
