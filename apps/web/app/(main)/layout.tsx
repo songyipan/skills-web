@@ -12,13 +12,12 @@ import {
   LayoutGrid,
   LogOut,
   User,
-  Search,
   Zap,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useSearchStore } from "@/lib/store/searchStore";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { SkillSearchDialog } from "@/components/skill-hub";
 
 export default function MainLayout({
   children,
@@ -31,7 +30,6 @@ export default function MainLayout({
   const [activePath, setActivePath] = useState("/explore");
 
   const { t, lang, toggleLang } = useTranslation();
-  const { setSearch } = useSearchStore();
 
   useEffect(() => {
     if (pathname) {
@@ -45,10 +43,6 @@ export default function MainLayout({
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.currentTarget.value);
   };
 
   return (
@@ -147,14 +141,8 @@ export default function MainLayout({
 
       <main className="flex-1 flex flex-col min-h-screen lg:min-h-auto pb-16 lg:pb-0">
         <header className="sticky top-0 h-20 border-b border-border flex items-center justify-between px-6 lg:px-12 bg-background/60 backdrop-blur-2xl z-[60] shrink-0">
-          <div className="relative flex-1 lg:max-w-xl text-foreground">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder={t("header.searchPlaceholder")}
-              onChange={handleSearch}
-              className="w-full bg-muted/20 border border-border rounded-2xl text-sm pl-12 pr-4 h-11 focus:border-primary/50 focus:outline-none transition-all placeholder:text-muted-foreground font-medium"
-            />
+          <div className="flex-1 lg:max-w-xl text-foreground">
+            <SkillSearchDialog />
           </div>
           <div className="flex items-center gap-3 lg:gap-5 ml-6">
             <ThemeToggle />

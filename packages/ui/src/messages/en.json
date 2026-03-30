@@ -12,7 +12,24 @@
   },
   "header": {
     "searchPlaceholder": "Press the Enter key to search for \"skills\"",
-    "sync": "Update All"
+    "sync": "Update All",
+    "searchShortcut": "Cmd / Ctrl + K",
+    "searchTitle": "Search Skills",
+    "searchDescription": "Type a skill name, description, or snippet to fuzzy-search matching results.",
+    "searchTriggerPlaceholder": "Search skills, descriptions, or keywords",
+    "searchDialogPlaceholder": "Search by skill name, description, or keyword",
+    "searchSubmitHint": "View results",
+    "searchLoading": "Loading skill index...",
+    "searchEmptyTitle": "No matching skills found",
+    "searchEmptyDescription": "Try another keyword, or jump into Explore to browse the full catalog.",
+    "searchLatest": "Latest Skills",
+    "searchResults": "Matching Results",
+    "searchResultCount": "results",
+    "searchCreatedAt": "Created",
+    "searchSkillBadge": "Skill",
+    "searchFooter": "Open a skill directly from the list, or continue into Explore for the full results page.",
+    "searchOpenResults": "Open Results",
+    "searchExplore": "Browse All Skills"
   },
   "hero": {
     "badge": "Marketplace v3.2",

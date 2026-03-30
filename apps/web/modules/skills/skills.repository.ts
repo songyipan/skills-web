@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { Prisma } from "@repo/db";
 import { CreateSkillDto } from "./types/skills.dto";
 
 export async function createSkill({
@@ -92,7 +93,10 @@ export async function getAllSkills({
   const where = {
     ...(userId && { userId }),
     ...(search && {
-      OR: [{ name: { contains: search } }, { desc: { contains: search } }],
+      OR: [
+        { name: { contains: search, mode: Prisma.QueryMode.insensitive } },
+        { desc: { contains: search, mode: Prisma.QueryMode.insensitive } },
+      ],
     }),
   };
 

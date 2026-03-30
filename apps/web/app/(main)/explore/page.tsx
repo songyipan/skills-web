@@ -14,7 +14,7 @@ import { useSkillsList } from "@/hooks/explore/useSkillsList";
 import { useRouter } from "next/navigation";
 import { useSearchStore } from "@/lib/store/searchStore";
 import { Skill } from "@repo/db";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const PAGE_SIZE = 12;
 
@@ -27,6 +27,10 @@ export default function ExplorePage() {
   const { data: pages, isLoading: loading } = useSkillsList({
     variables: { page: currentPage, pageSize: PAGE_SIZE, search },
   });
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
 
   const handleDetailClick = (id: string) => {
     router.push(`/skills/${id}`);

@@ -12,7 +12,24 @@
   },
   "header": {
     "searchPlaceholder": "按 Enter 键搜索 \"技能\"",
-    "sync": "全部更新"
+    "sync": "全部更新",
+    "searchShortcut": "Cmd / Ctrl + K",
+    "searchTitle": "搜索 Skills",
+    "searchDescription": "输入技能名称、描述或内容片段，快速模糊检索结果。",
+    "searchTriggerPlaceholder": "搜索技能、描述或关键字",
+    "searchDialogPlaceholder": "搜索技能名称、描述或关键字",
+    "searchSubmitHint": "查看结果",
+    "searchLoading": "正在加载技能列表...",
+    "searchEmptyTitle": "没有找到匹配的技能",
+    "searchEmptyDescription": "换个关键词再试试，或者直接进入 Explore 浏览全部技能。",
+    "searchLatest": "最新技能",
+    "searchResults": "匹配结果",
+    "searchResultCount": "条",
+    "searchCreatedAt": "创建于",
+    "searchSkillBadge": "技能",
+    "searchFooter": "支持点击技能直达详情，也可以进入 Explore 查看完整结果页。",
+    "searchOpenResults": "打开结果页",
+    "searchExplore": "浏览全部技能"
   },
   "hero": {
     "badge": "商店 v3.2",
